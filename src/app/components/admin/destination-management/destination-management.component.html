@@ -1,0 +1,43 @@
+<mat-card>
+  <mat-card-title>Destination Management</mat-card-title>
+
+  <mat-table [dataSource]="destinations" matSort>
+
+    <!-- Destination Name Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Destination Name </mat-header-cell>
+      <mat-cell *matCellDef="let destination"> {{ destination.name }} </mat-cell>
+    </ng-container>
+
+    <!-- Airport Name Column -->
+    <ng-container matColumnDef="airportName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Airport Name </mat-header-cell>
+      <mat-cell *matCellDef="let destination"> {{ destination.airportName }} </mat-cell>
+    </ng-container>
+
+    <!-- Destination Code Column -->
+    <ng-container matColumnDef="destinationCode">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Destination Code </mat-header-cell>
+      <mat-cell *matCellDef="let destination"> {{ destination.destinationCode }} </mat-cell>
+    </ng-container>
+
+    <!-- Image Column -->
+    <ng-container matColumnDef="imageUrl">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Image </mat-header-cell>
+      <mat-cell *matCellDef="let destination">
+        <img [src]="destination.imageUrl" alt="{{ destination.name }}" width="50" height="50">
+      </mat-cell>
+    </ng-container>
+
+    <!-- Action Column -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+      <mat-cell *matCellDef="let destination">
+        <button mat-button (click)="viewDestinationDetails(destination)">View Details</button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+  </mat-table>
+</mat-card>
