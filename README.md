@@ -1,59 +1,184 @@
-# OnoAirApp
+✈️ OnoAir Flight Booking Management System 🛫
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.6.
+📚 Introduction ✨
 
-## Development server
+OnoAir Flight Booking Management System is a 🌍 comprehensive and professional application designed to streamline the process of booking flights with ease and convenience. This project is a part of the Front-end Development and Implementation course offered by the Department of Computer Science, allowing students to apply their knowledge and skills practically. ✈️📚✨
 
-To start a local development server, run:
+🎯 Project Goals ✈️
 
-```bash
-ng serve
-```
+🛠️ Primary Objectives 💺
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+User-Friendly Booking: Provide a seamless and efficient platform for users to search, compare, and book flights. 💻✈️🔍
 
-## Code scaffolding
+Administrative Control: Offer intuitive management tools for system administrators to monitor application performance and manage databases of flights and users. 📊🛠️🗂️
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Advanced Features: Integrate features such as advanced search, seat reservation, and additional options to enhance the user experience. 🚀💺🎯
 
-```bash
-ng generate component component-name
-```
+📘 Learning Objectives 🧑‍💻
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Build a foundational application using Angular. 🛠️📘✨
 
-```bash
-ng generate --help
-```
+Practice coding standards as per Angular and TypeScript Style Guides. 📜🔍💡
 
-## Building
+Demonstrate the advantages of Web Frameworks over basic technologies. 🌐🚀📈
 
-To build the project run:
+🖥️ Features 🔍
 
-```bash
-ng build
-```
+✈️ Management Screens 📋
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Flight Destination Management:
 
-## Running unit tests
+✨ Tabular display of all destinations.
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+✨ View detailed information about destinations. ✈️📋🗺️
 
-```bash
-ng test
-```
+Flight Management:
 
-## Running end-to-end tests
+✨ View a list of defined flights.
 
-For end-to-end (e2e) testing, run:
+✨ Detailed view of specific flights. 🛫📊📅
 
-```bash
-ng e2e
-```
+🛒 User Screens 📂
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+My Orders Screen:
 
-## Additional Resources
+✨ Displays all past and future bookings.
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+✨ Allows easy navigation to specific flight details. 🛒🛫📂
+
+Help and Support Screen:
+
+✨ Offers detailed instructions and a user guide. 🆘📘🖱️
+
+Home Screen:
+
+✨ Last arrival flights display.
+
+✨ A sortable table of future flights with booking options. 🏠📅🔍
+
+🔍 Key Functionalities ✈️
+
+Flight Search:
+
+✨ Display all upcoming flights.
+
+✨ Sorting by origin, destination, departure date, and arrival date. 🔍📊📅
+
+Last Minute Flights:
+
+✨ Highlight flights departing within the current week.
+
+✨ Quick booking navigation. ⏳✈️🖱️
+
+🛠️ Standards and Guidelines 📜
+
+🎨 Design and Components:
+
+✨ Use Angular Material components (toolbar, icon, menu, button, table, form field, etc.). ✨📐📋
+
+✨ Maintain design consistency across all screens. 🎨✔️📱
+
+📋 Coding Standards:
+
+✨ Adhere to Angular and TypeScript Style Guides.
+
+✨ Leverage directives (ngIf, ngFor), data binding, and built-in pipes (e.g., DatePipe, TitleCase). 🧑‍💻📜🔧
+
+📄 Form Management:
+
+✨ Utilize template-driven forms and two-way data binding (ngModel).
+
+✨ Implement validation and error handling using Angular Material Form Fields. 📝✔️🛠️
+
+🌍 Data and Information Management ✈️
+
+✈️ Entities 📋
+
+Destination:
+
+✨ Attributes: destination name, image URL, airport name, airport website, email address, destination code. 🌍📧📷
+
+Flight:
+
+✨ Attributes: flight number, destination code, landing code, departure and arrival times, number of seats. ✈️🛫🛬
+
+Reservation:
+
+✨ Attributes: reservation code, flight number, number of passengers, passenger details (name, passport numbers). 🛒📋🛂
+
+📦 Services 🔍
+
+✨ Each entity is managed via a dedicated service with an array of at least 10 sample objects.
+
+✨ Each service provides methods to:
+
+✨ Retrieve all objects (LIST). 📋📂🔍
+
+✨ Retrieve specific object details (GET). 📋📄🔎
+
+🛠️ System Components 📱
+
+📋 Header Component 🖱️
+
+✨ Displays the application name (navigates to the home screen).
+
+✨ Includes a menu for navigation to administrator and user screens. 🛠️📋📱
+
+🆘 Footer Component 📩
+
+✨ Includes a help icon leading to the Help and Support screen. 🆘📩📱
+
+📊 Tables 🖱️
+
+✨ Include columns for all displayed data items.
+
+✨ Feature an "actions" column with buttons for detailed views. 📊🛠️🖱️
+
+🏠 Screen Descriptions ✈️
+
+⏳ Home Screen 📅
+
+Last Minute Flights Area: Displays flights departing this week.
+
+Flight Search Area: Lists all future flights with sorting and booking options. ✈️📋📅
+
+🛒 My Bookings Screen 📂
+
+✨ Separate sections for past and future flights.
+
+✨ Navigation to detailed flight views. 🛒📂🗂️
+
+🌟 Highlights 🎨
+
+✨ Implement all features and details shown in provided screen illustrations.
+
+✨ Flexibility in design layout with adherence to functionality.
+
+✨ Maintain creative design consistency across the system. 🌟🎨✨
+
+🛠️ Topics and Tools Covered 📋
+
+Angular: Components, Routing, Data Binding, Component Communication. 🛠️🌐🔗
+
+Angular Material: Form Fields, Dialogs, Validation, and Error Handling. 📝✔️🛠️
+
+Directives: ngIf, ngFor. 🧑‍💻📋🔧
+
+Pipes: Built-in (DatePipe, TitleCase). 📅📝🔗
+
+Forms: Template-driven, Two-way Binding. ✏️🔗📄
+
+Local Storage API. 📦💻📂
+
+JSON Integration. 📝💾📊
+
+🚀 Summary ✈️
+
+The OnoAir Flight Booking Management System is designed to serve as a robust and feature-rich application. It provides a hands-on opportunity for students to learn and implement cutting-edge front-end development practices using Angular. By the end of the project, participants will have a well-rounded understanding of building professional-grade web applications. 🚀📚✨
+
+🎓 Author ✍️
+
+Department of Computer Science
+Front-end Development and Implementation Course 🎓✍️💡
+
+
