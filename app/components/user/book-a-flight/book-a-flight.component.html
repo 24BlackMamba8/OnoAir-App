@@ -1,0 +1,54 @@
+<div class="book-a-flight-container">
+  <h2>Book a Flight</h2>
+
+  <!-- Flight List Table -->
+  <table>
+    <thead>
+      <tr>
+        <th>Flight No.</th>
+        <th>Origin</th>
+        <th>Destination</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="flights.length > 0">
+      <tr *ngFor="let flight of flights">
+        <td>{{ flight.flightNumber }}</td>
+        <td>{{ flight.origin }}</td>
+        <td>{{ flight.destination }}</td>
+        <td>
+          <button (click)="openEditDialog(flight)">Book</button>
+        </td>
+      </tr>
+    </tbody>
+
+  </table>
+
+  <!-- Reservation Details Section (appears below the table) -->
+  <div *ngIf="selectedFlight">
+    <h3>Reservation Details</h3>
+    <div class="reservation-details">
+      <p><strong>Flight:</strong> {{ selectedFlight.flightNumber }} ({{ selectedFlight.origin }} to {{ selectedFlight.destination }})</p>
+      <p><strong>Passenger Count:</strong> {{ passengerCount }}</p>
+
+      <!-- Passenger Form -->
+      <div>
+        <h4>Enter Passenger Details</h4>
+        <div *ngFor="let passenger of passengers; let i = index">
+          <p>Passenger {{ i + 1 }}: {{ passenger.name }} - {{ passenger.passportNumber }}</p>
+        </div>
+
+        <div>
+          <input type="text" [(ngModel)]="newPassenger.name" placeholder="Passenger Name" />
+          <input type="text" [(ngModel)]="newPassenger.passportNumber" placeholder="Passport Number" />
+          <button (click)="addPassenger()">Add Passenger</button>
+        </div>
+
+        <!-- Create Reservation Button -->
+        <button (click)="createReservation(selectedFlight)">Create Reservation</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
