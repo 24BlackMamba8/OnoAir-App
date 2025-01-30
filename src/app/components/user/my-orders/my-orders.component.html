@@ -1,0 +1,64 @@
+<div class="my-orders-container">
+  <h2>OnoAir - My Orders</h2>
+
+  <!-- הזמנות עתידיות -->
+  <h3>Upcoming Bookings</h3>
+  <table class="orders-table">
+    <thead>
+      <tr>
+        <th>Origin</th>
+        <th>Destination</th>
+        <th>Flight Image</th>
+        <th>No. of Passengers</th>
+        <th>Booking Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of upcomingOrders">
+        <td>{{ order.flight.origin }} Boarding: {{ order.flight.departure | date: 'dd/MM/yyyy HH:mm' }}</td>
+        <td>{{ order.flight.destination }} Landing: {{ order.flight.arrival | date: 'dd/MM/yyyy HH:mm' }}</td>
+        <td>
+          <div class="image-container">
+            <img [src]="order.flight.image" alt="Destination Image" class="order-image" />
+          </div>
+        </td>
+        <td>{{ order.passengerCount }}</td>
+        <td>{{ order.date | date: 'dd/MM/yyyy' }}</td>
+        <td>
+          <button mat-button *ngIf="order.flight" (click)="viewFlightDetails(order)">View</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- הזמנות קודמות -->
+  <h3>Previous Bookings</h3>
+  <table class="orders-table">
+    <thead>
+      <tr>
+        <th>Origin</th>
+        <th>Destination</th>
+        <th>Flight Image</th>
+        <th>No. of Passengers</th>
+        <th>Booking Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of previousOrders">
+        <td>{{ order.flight.origin }} Boarding: {{ order.flight.departure | date: 'dd/MM/yyyy HH:mm' }}</td>
+        <td>{{ order.flight.destination }} Landing: {{ order.flight.arrival | date: 'dd/MM/yyyy HH:mm' }}</td>
+        <td>
+          <div class="image-container">
+            <img [src]="order.flight.image" alt="Destination Image" class="order-image" />
+          </div>
+        </td>
+        <td>{{ order.passengerCount }}</td>
+        <td>{{ order.date | date: 'dd/MM/yyyy' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- כפתור רענון -->
+  <button (click)="refreshOrders()" class="refresh-button">Refresh Orders</button>
+</div>

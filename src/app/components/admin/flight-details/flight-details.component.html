@@ -1,0 +1,45 @@
+<div *ngIf="flight">
+  <h2>Flight Details</h2>
+  <p><strong>Flight Number:</strong> {{ flight.flightNumber }}</p>
+  <p><strong>Origin:</strong> {{ flight.origin }}</p>
+  <p><strong>Destination:</strong> {{ flight.destination }}</p>
+  <p><strong>Departure:</strong> {{ flight.departure | date: 'dd/MM/yyyy HH:mm' }}</p>
+  <p><strong>Arrival:</strong> {{ flight.arrival | date: 'dd/MM/yyyy HH:mm' }}</p>
+  <p><strong>Seats:</strong> {{ flight.seats }}</p>
+  <img [src]="flight.image" alt="Flight Image">
+</div>
+
+<div mat-dialog-content>
+  <div>
+    <label>Flight Number:</label>
+    <span>{{ data.flight.flightNumber }}</span>
+  </div>
+  <div>
+    <label>Origin:</label>
+    <span>{{ data.flight.origin }}</span>
+  </div>
+  <div>
+    <label>Destination:</label>
+    <span>{{ data.flight.destination }}</span>
+  </div>
+  <div>
+    <label>Departure:</label>
+    <span>{{ data.flight.departure | date:'shortDate' }}</span>
+  </div>
+
+  <div>
+    <label>Arrival:</label>
+    <span>{{ data.flight.arrival | date:'shortDate' }}</span>
+  </div>
+  <div>
+    <label>Seats:</label>
+    <span>{{ data.flight.seats }}</span>
+  </div>
+  <div>
+    <label>Image:</label>
+    <img [src]="data.flight.image" alt="Flight Image" width="200">
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onClose()">Close</button>
+</div>

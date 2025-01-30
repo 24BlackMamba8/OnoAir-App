@@ -1,0 +1,38 @@
+<div class="header">
+  <button class="menu-btn" (click)="toggleMenu()">☰</button>
+  <button class="logo-button" (click)="goToHomePage()">
+    <span class="logo">OnoAir</span>
+  </button>
+</div>
+
+<div class="side-menu" *ngIf="menuOpen">
+  <div class="menu-item">
+    <button class="menu-link" (click)="toggleDropdown('admin')">
+      Admin
+      <span *ngIf="dropdownOpen['admin']">▼</span>
+      <span *ngIf="!dropdownOpen['admin']">▶</span>
+    </button>
+    <div class="dropdown" *ngIf="dropdownOpen['admin']">
+      <button class="dropdown-link" (click)="navigateTo('/destination-management')">
+        Destination Management
+      </button>
+      <button class="dropdown-link" (click)="navigateTo('/flight-management')">
+        Flight Management
+      </button>
+    </div>
+  </div>
+
+  <div class="menu-item">
+    <button class="menu-link" (click)="toggleDropdown('user')">
+      User
+      <span *ngIf="dropdownOpen['user']">▼</span>
+      <span *ngIf="!dropdownOpen['user']">▶</span>
+    </button>
+    <div class="dropdown" *ngIf="dropdownOpen['user']">
+      <button class="dropdown-link" (click)="navigateTo('/book-a-flight')">book-a-flight</button>
+      <button class="dropdown-link" (click)="navigateTo('/user/my-orders')">my-orders</button>
+    </div>
+  </div>
+</div>
+
+<router-outlet></router-outlet>

@@ -1,0 +1,34 @@
+<!-- Updated HTML for Last Minute Flights Section -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<div class="home-container">
+  <!-- Hero Section -->
+ <section class="hero-section">
+  <div class="hero-content">
+  <h1>Welcome to OnoAir Flights</h1>
+  <p>Your gateway to seamless air travel</p>
+  </div>
+ </section>
+ <!-- Last Minute Flights Section -->
+ <section id="last-minute-flights" class="last-minute-flights">
+  <div class="caption-container">
+  <button class="last-minute-button" (click)="navigateToLastMinute()">Last Minute Flights</button>
+  </div>
+  <div class="flight-card-container">
+  <div *ngFor="let flight of lastMinuteFlights" class="flight-card">
+  <img
+  class="flight-image"
+  [src]="flight.image"
+  [alt]="'Image of ' + flight.destination"
+  />
+  <div class="flight-info">
+  <p><strong>From:</strong> {{ flight.origin }}</p>
+  <p><strong>To:</strong> {{ flight.destination }}</p>
+  <p><strong>Departure:</strong> {{ flight.departure | date:'short' }}</p>
+  <p><strong>Arrival:</strong> {{ flight.arrival | date:'short' }}</p>
+  <button class="book-button" (click)="openEditDialog(flight)">Book Now</button>
+  </div>
+  </div>
+  </div>
+ </section>
+
+

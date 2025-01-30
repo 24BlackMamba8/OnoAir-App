@@ -1,0 +1,19 @@
+<h3>Reservation Details</h3>
+<p><strong>Flight:</strong> {{ data.flight.flightNumber }} ({{ data.flight.origin }} to {{ data.flight.destination }})</p>
+
+<!-- Passenger Form -->
+<div>
+  <h4>Enter Passenger Details</h4>
+  <div *ngFor="let passenger of passengers; let i = index">
+    <p>Passenger {{ i + 1 }}: {{ passenger.name }} - {{ passenger.passportNumber }}</p>
+  </div>
+
+  <div>
+    <input type="text" [(ngModel)]="newPassenger.name" placeholder="Passenger Name" />
+    <input type="text" [(ngModel)]="newPassenger.passportNumber" placeholder="Passport Number" />
+    <button (click)="addPassenger()">Add Passenger</button>
+  </div>
+
+  <!-- Create Reservation Button -->
+  <button (click)="createReservation()">Create Reservation</button>
+</div>
