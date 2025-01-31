@@ -132,5 +132,7 @@ The OnoAir Flight Booking Management System is designed to serve as a robust and
 ---
 
 ### 🎓 Author ✍️
-Department of Computer Science
-Front-end Development and Implementation Course 🎓✍️💡
+student : tamir sanbato
+Department of Computer ScienceFront-end Development and Implementation Course
+
+Instructor: Ms. Babai Hava 🎓✍️💡
