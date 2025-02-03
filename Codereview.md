@@ -18,7 +18,7 @@
 	        	                                           
 **1. Home screen, help, header, footer**
 
- ##**Functionality**
+ **Functionality**
 
 #### **Preservation**
 - **Module:** `home.component.ts`
