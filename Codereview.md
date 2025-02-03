@@ -62,8 +62,8 @@
 
 
 
-## **Topic:
-2. Flights - screens + service Functionality Review**
+## **Topic:**
+**2. Flights - screens + service Functionality Review**
 
 ### Preservation
 - **Flight Management Module (flight-management.component.ts)**
