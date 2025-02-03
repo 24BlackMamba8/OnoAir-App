@@ -1,0 +1,24 @@
+<div class="edit-flight-container">
+  <h2>Edit Flight</h2>
+  <form (ngSubmit)="onSave()">
+    <label>Flight Number:</label>
+    <input type="text" [(ngModel)]="updatedFlight.flightNumber" name="flightNumber" disabled />
+
+    <label>Origin:</label>
+    <input type="text" [(ngModel)]="updatedFlight.origin" name="origin" disabled />
+
+    <label>Destination:</label>
+    <input type="text" [(ngModel)]="updatedFlight.destination" name="destination" disabled />
+
+    <label>First Name:</label>
+    <input type="text" [(ngModel)]="updatedFlight.firstName" name="firstName" required />
+
+    <label>Last Name:</label>
+    <input type="text" [(ngModel)]="updatedFlight.lastName" name="lastName" required />
+
+    <label>Seat Number:</label>
+    <input type="number" [(ngModel)]="updatedFlight.seatNumber" name="seatNumber" required />
+
+    <button type="submit">Save</button>
+  </form>
+</div>
