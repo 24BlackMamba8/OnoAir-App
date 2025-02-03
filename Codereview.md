@@ -1,89 +1,59 @@
-# Code Review for OnoAir Flight Management System
+# Code Review for OnoAir Management System
 
 ## Explanation of Comment Types
 
-1. **Functionality (Based on Running the Code)**
+### Functionality
+- **Preservation:** Highlights impressive features that work well, focusing on module-specific capabilities, especially unique ones.
+- **Improvement:** Identifies bugs or features that do not function as expected, emphasizing specific modules.
 
-   - **Preservation:** Highlights unique capabilities of the system that work impressively, with a focus on the relevant module.
-   - **Improvement:** Identifies issues or bugs in the system that do not work well, with a focus on the relevant module.
-
-2. **Standards**
-
-   - **Preservation:** Identifies well-written code segments and specifies the coding standards they adhere to.
-   - **Improvement:** Points out code segments that do not adhere to standards and provides references to relevant coding standards.
+### Standards
+- **Preservation:** Acknowledges well-written code that adheres to best practices and coding standards.
+- **Improvement:** Points out code that deviates from best practices and suggests improvements.
 
 ---
 
-## Code Review Comments
+## Code Review
 
-### **Functionality**
+### Functionality
 
-#### **Preservation:**
+#### **Preservation**
+- **Module:** `home.component.ts`
+- **Comment:** The `openEditDialog` function effectively utilizes Angular Material Dialog for in-place editing of flight details. The seamless update of `lastMinuteFlights` ensures real-time UI updates without requiring a full page reload, which enhances user experience.
 
-- **Module: Flights Service**
-  - *Comment:* The flight filtering and sorting in `flights.service.ts` work impressively, allowing users to quickly find flights based on departure time and destination. The implementation efficiently handles large data sets using Angular's `async` pipes and observables, ensuring smooth performance.
-  
-  ```typescript
-  getFlights(): Observable<Flight[]> {
-    return this.http.get<Flight[]>(this.apiUrl).pipe(
-      map(flights => flights.sort((a, b) => new Date(a.departure).getTime() - new Date(b.departure).getTime()))
-    );
-  }
-  ```
-
-#### **Improvement:**
-
-- **Module: My Orders Component**
-  - *Comment:* In `my-orders.component.ts`, when a user cancels an order, the UI does not immediately update to reflect the change. The order still appears in the list until a full page refresh. Consider using Angular's Change Detection Strategy or manually updating the local order list after deletion.
-  
-  ```typescript
-  cancelOrder(orderId: number) {
-    this.orderService.cancelOrder(orderId).subscribe(() => {
-      this.orders = this.orders.filter(order => order.id !== orderId);
-    });
-  }
-  ```
-
-### **Standards**
-
-#### **Preservation:**
-
-- **Module: Header Component**
-  - *Comment:* The use of Angular Material components in `header.component.html` adheres to Material Design guidelines, ensuring a consistent and accessible UI. The navigation bar is implemented with `mat-toolbar` and `mat-menu`, following best practices for responsive design.
-  
-  ```html
-  <mat-toolbar color="primary">
-    <span>OnoAir</span>
-    <span class="spacer"></span>
-    <mat-menu>
-      <button mat-menu-item>Flights</button>
-      <button mat-menu-item>My Orders</button>
-    </mat-menu>
-  </mat-toolbar>
-  ```
-
-#### **Improvement:**
-
-- **Module: Destinations Service**
-  - *Comment:* In `destinations.service.ts`, some functions do not have proper TypeScript return types. For example, the `getDestinations()` method should explicitly return `Observable<Destination[]>` instead of relying on TypeScript inference. This aligns with TypeScript best practices for type safety and maintainability.
-  
-  ```typescript
-  getDestinations(): Observable<Destination[]> {
-    return this.http.get<Destination[]>(this.apiUrl);
-  }
-  ```
+#### **Improvement**
+- **Module:** `home.component.ts`
+- **Comment:** In the `bookFlight` method, the `id` field in the `Order` object is assigned a randomly generated string, but the `Order` model defines `id` as a number. This discrepancy could lead to type-related issues. It should be changed to match the model definition.
 
 ---
 
-## Summary Table of Comments
+### Standards
 
-| Topic                             | Functionality (Preservation) | Functionality (Improvement) | Standards (Preservation) | Standards (Improvement)   |
-| --------------------------------- | ---------------------------- | --------------------------- | ------------------------ | ------------------------- |
-| Home screen, help, header, footer | -                            | -                           | `header.component.html`  | -                         |
-| Flights - Accept + service        | `flights.service.ts`         | -                           | -                        | -                         |
-| Destinations - Accept + service   | -                            | -                           | -                        | `destinations.service.ts` |
-| Orders - Accept + service         | -                            | -                           | -                        | -                         |
-| My orders - Accept + service      | -                            | `my-orders.component.ts`    | -                        | -                         |
+#### **Preservation**
+- **Module:** `header.component.ts`
+- **Code Segment:**
+  ```typescript
+  toggleDropdown(dropdownKey: string): void {
+    this.dropdownOpen[dropdownKey] = !this.dropdownOpen[dropdownKey];
+  }
+  ```
+- **Comment:** The use of a dynamic key in `toggleDropdown` follows best practices for managing multiple dropdowns dynamically, making the code more scalable and easier to maintain.
 
-All required comment types have been provided, ensuring comprehensive coverage of functionality and standards across different modules of the system.
+#### **Improvement**
+- **Module:** `home.component.ts`
+- **Code Segment:**
+  ```typescript
+  import { OrderService } from 'src/app/services/orders.service';
+  ```
+- **Comment:** The file is imported as `orders.service`, but the standard naming convention for Angular services suggests using `order.service.ts` to maintain consistency with other service files.
+
+---
+
+## Summary Table
+| Topics | Preservation | Improvement | File |
+|--------|-------------|-------------|------|
+| Home screen | ✅ | ✅ | `home.component.ts` |
+| Help | ❌ | ❌ | `help-support.component.ts` |
+| Header | ✅ | ❌ | `header.component.ts` |
+| Footer | ❌ | ❌ | `footer.component.ts` |
+
 
