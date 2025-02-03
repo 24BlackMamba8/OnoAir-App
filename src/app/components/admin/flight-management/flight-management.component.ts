@@ -1,3 +1,4 @@
+// flight-management.component.ts
 import { Component } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
