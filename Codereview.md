@@ -14,9 +14,9 @@
 
 ## Code Review
 
-###**Topic:**
+**Topic:**
 	        	                                           
-##**1. Home screen, help, header, footer**
+**1. Home screen, help, header, footer**
 
  ##**Functionality**
 
