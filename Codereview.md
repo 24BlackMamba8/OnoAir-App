@@ -14,7 +14,8 @@
 
 ## Code Review
 
-###נושא:		        	                                           
+###**Topic:**
+	        	                                           
 ##**1. Home screen, help, header, footer**
 
  ##**Functionality**
