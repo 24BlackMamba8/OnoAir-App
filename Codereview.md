@@ -14,7 +14,10 @@
 
 ## Code Review
 
-### Functionality
+###נושא:		        	                                           
+##**1. Home screen, help, header, footer**
+
+ ##**Functionality**
 
 #### **Preservation**
 - **Module:** `home.component.ts`
@@ -55,5 +58,43 @@
 | Help | ❌ | ❌ | `help-support.component.ts` |
 | Header | ✅ | ❌ | `header.component.ts` |
 | Footer | ❌ | ❌ | `footer.component.ts` |
+
+
+
+##Topic:
+2. Flights - screens + service Functionality Review
+
+### Preservation
+- **Flight Management Module (flight-management.component.ts)**
+  - The system effectively implements a **dialog-based flight editing system**, allowing seamless modifications of flight details.
+  - **Unique Feature:** The `editFlight` function updates the flight list dynamically after dialog closure, ensuring real-time updates.
+
+### Improvement
+- **Flight Management Module (flight-management.component.ts)**
+  - **Bug:** In the flight data array, `Arrival` is capitalized instead of `arrival`, which could cause issues when rendering or processing flight data.
+  - **Improvement:** The `addFlight` method generates a new ID by finding the max existing ID and incrementing it. This could cause duplication issues if flights are removed. Consider using a UUID or a backend-generated ID.
+
+## Standards Review
+
+### Preservation
+- **Flight Management Module (flight-management.component.ts)**
+  - The component follows **Angular’s standalone component structure**, properly using `imports` instead of `NgModule` declarations.
+  - Uses **MatDialog** efficiently for modal interactions, following Material Design best practices.
+
+### Improvement
+- **Flight Management Module (flight-management.component.ts)**
+  - **Standard Violation:** The `flights` array is hardcoded in the component. It is recommended to **fetch data from a service** to separate concerns and follow Angular’s best practices for state management.
+  - **Standard Violation:** Unused imports (`FlightAddFormComponent` and `FlightEditFormComponent` are commented out). Consider removing them if not required to keep the code clean.
+
+## Review Summary Table
+
+| Topic                  | Preservation/Improvement | File                             |
+|------------------------|------------------------|---------------------------------|
+| Flight Management UI   | Preservation          | flight-management.component.ts  |
+| Flight Data Handling   | Improvement           | flight-management.component.ts  |
+| Angular Structure      | Preservation          | flight-management.component.ts  |
+| Code Cleanliness       | Improvement           | flight-management.component.ts  |
+
+This review highlights key areas where the system performs well and areas that need improvement. Let me know if you need further details or modifications!
 
 
