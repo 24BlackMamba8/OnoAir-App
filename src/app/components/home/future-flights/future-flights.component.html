@@ -1,1 +1,25 @@
+<div class="future-flights-container">
+  <h1>Future Flights</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Flight No.</th>
+        <th>Origin</th>
+        <th>Destination</th>
+        <th>Book</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let flight of flights">
+        <td>{{ flight.flightNumber }}</td>
+        <td>{{ flight.origin }}</td>
+        <td>{{ flight.destination }}</td>
+        <td>
+          <button (click)="openBookingDialog(flight)">Book Now</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
