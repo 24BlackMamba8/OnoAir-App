@@ -4,6 +4,7 @@
   margin: 20px auto;
   padding: 20px;
   font-family: 'Roboto', sans-serif;
+  height: 150vh;
   display: flex;
   flex-direction: column;
   align-items: center; /* מרכז את כל התוכן בקונטיינר */
@@ -52,4 +53,111 @@ button:hover {
     overflow-x: auto;
   }
 }
+.book-a-flight-table {
+  max-height: 70vh; /* הגבל את גובה הטבלה כך שלא תתפוס את כל המסך */
+  overflow-y: auto; /* הפעל גלילה אנכית בתוך הטבלה */
+  display: block; /* הכרחי כדי שה- overflow יעבוד על <table> */
+}
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto; /* מאפשר גלילה אנכית */
+  scroll-behavior: smooth;
+}
+mat-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.seat-map {
+  display: grid;
+  grid-template-columns: repeat(4, 50px);
+  gap: 10px;
+  margin-top: 10px;
+}
 
+.seat-map div {
+  width: 50px;
+  height: 50px;
+  background-color: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.seat-map div.selected {
+  background-color: #4caf50; /* Green for selected seats */
+  color: white;
+}
+
+.seat-map div.occupied {
+  background-color: #d32f2f; /* Red for occupied seats */
+  color: white;
+  cursor: not-allowed;
+}
+.seats-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.seats-container div {
+  display: flex;
+  gap: 5px;
+}
+
+button.occupied {
+  background-color: red;
+  cursor: not-allowed;
+}
+
+button.selected {
+  background-color: green;
+}
+.booking-card {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  z-index: 1000;
+}
+
+.seats-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.seat-row {
+  display: flex;
+  gap: 5px;
+}
+
+.seat-row button {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background-color: lightgray;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.seat-row button.selected {
+  background-color: green;
+  color: white;
+}
+
+.seat-row button:disabled {
+  background-color: red;
+  cursor: not-allowed;
+}

@@ -3,7 +3,7 @@ html, body {
   margin: 0;
   height: 100%;
   font-family: 'Roboto', Arial, sans-serif;
-  background: url('/assets/images/OnoAirThe airplane.webp') no-repeat center center/cover;
+  background: url('src/assets/images/onoAir-1.jpg') no-repeat center center/cover;
   color: #333;
   overflow-x: hidden;
   scroll-behavior: smooth;
@@ -111,3 +111,6 @@ html, body {
     cursor: pointer;
   }
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

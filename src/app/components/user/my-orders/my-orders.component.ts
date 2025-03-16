@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Inject } from '@angular/core';
 import { OrderService } from 'src/app/services/orders.service';
 import { Order } from 'src/app/models/order.model';
 import { CommonModule } from '@angular/common';
@@ -8,42 +9,28 @@ import { Router } from '@angular/router';
 import { Flight } from 'src/app/models/flight.model';
 import { FlightDetailsComponent } from 'src/app/components/admin/flight-details/flight-details.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-
+import { BookingDetailsComponent } from '../booking-details/booking-details.component';
+import { FlightService } from 'src/app/services/flight.service';
+import { NgModule } from '@angular/core';
 
 @Component({
   selector: 'app-my-orders',
   standalone: true,
   templateUrl: './my-orders.component.html',
   styleUrls: ['./my-orders.component.css'],
-  imports:[CommonModule, FormsModule,MatDialogModule] // הוסף את CommonModule כאן
+  imports:[CommonModule, FormsModule,MatDialogModule], // הוסף את CommonModule כאן
 })
 export class MyOrdersComponent implements OnInit {
   orders: Order[] = [];
-  upcomingOrders: Order[] = [];
-  previousOrders: Order[] = [];
-
-  constructor(
-    private orderService: OrderService,
-    public dialog: MatDialog,
-    private router: Router
-  ) {}
-
-  ngOnInit(): void {
-    this.loadOrders();
-    console.log(this.orders); // בדוק אם ה-URL של התמונה קיים
-  }
-
- // פונקציה זו טוענת את ההזמנות ומעדכנת את המערך
-
- loadOrders(): void {
-  const allOrders: Order[] = [
+  today = new Date();
+  bookings: Order[] = [
     {
       id: '1',
       bookingCode: 'ABC123',
       flightNumber: 'ON001',
-      passengerCount: 5,
+      passengerCount: 2,
       status: 'Confirmed',
-      date: '2025-07-16',
+      date: new Date('2025-07-16'), // ✅ עכשיו זה Date במקום string
       flight: {
         id: 1,
         flightNumber: 'ON001',
@@ -55,8 +42,8 @@ export class MyOrdersComponent implements OnInit {
         image: 'assets/images/paris.jpg',
       },
       passengers: [
-        { name: 'Dany Avdia', passportNumber: '123456789' },
-        { name: 'Liron Avdia', passportNumber: '987654321' },
+        { firstName: 'Dany', lastName: 'Avdia', passportNumber: '123456789' },
+        { firstName: 'Liron', lastName: 'Avdia', passportNumber: '987654321' }
       ]
     },
     {
@@ -65,7 +52,7 @@ export class MyOrdersComponent implements OnInit {
       flightNumber: 'ON002',
       passengerCount: 6,
       status: 'Pending',
-      date: '2024-05-20',
+      date: new Date('2024-05-20') ,
       flight: {
         id: 2,
         flightNumber: 'ON002',
@@ -77,8 +64,8 @@ export class MyOrdersComponent implements OnInit {
         image: 'assets/images/new york.jpg',
       },
       passengers: [
-        { name: 'Moran Cohen', passportNumber: '112233445' },
-        { name: 'Mishel Levi', passportNumber: '556677889' },
+        { firstName: 'Moran', lastName: 'Cohen', passportNumber: '112233445' },
+        { firstName: 'Mishel', lastName: 'Levi', passportNumber: '556677889' }
       ]
     },
     {
@@ -87,7 +74,7 @@ export class MyOrdersComponent implements OnInit {
       flightNumber: 'ON003',
       passengerCount: 3,
       status: 'Confirmed',
-      date: '2025-08-10',
+      date: new Date ('2025-08-10'),
       flight: {
         id: 3,
         flightNumber: 'ON003',
@@ -99,8 +86,8 @@ export class MyOrdersComponent implements OnInit {
         image: 'assets/images/amsterdam.jpg',
       },
       passengers: [
-        { name: 'Noa Levi', passportNumber: '223344556' },
-        { name: 'Eitan Bar', passportNumber: '667788990' },
+        { firstName: 'Noa', lastName: 'Levi', passportNumber: '223344556' },
+        { firstName: 'Eitan', lastName: 'Bar', passportNumber: '667788990' }
       ]
     },
     {
@@ -109,7 +96,7 @@ export class MyOrdersComponent implements OnInit {
       flightNumber: 'ON004',
       passengerCount: 2,
       status: 'Pending',
-      date: '2024-06-15',
+      date: new Date ('2024-06-15'),
       flight: {
         id: 4,
         flightNumber: 'ON004',
@@ -121,48 +108,55 @@ export class MyOrdersComponent implements OnInit {
         image: 'assets/images/toronto.jpg',
       },
       passengers: [
-        { name: 'David Green', passportNumber: '998877665' },
-        { name: 'Sarah Cohen', passportNumber: '554433221' },
+        { firstName: 'David', lastName: 'Green', passportNumber: '998877665' },
+        { firstName: 'Sarah', lastName: 'Cohen', passportNumber: '554433221' }
       ]
     }
   ];
 
-  const currentDate = new Date();
+  constructor(
+    private orderService: OrderService,
+    private flightService: FlightService,
+    public dialog: MatDialog,
+    private router: Router
+  ) {}
 
-  this.upcomingOrders = allOrders.filter(order => new Date(order.flight.departure) > currentDate);
-  this.previousOrders = allOrders.filter(order => new Date(order.flight.arrival) < currentDate);
+ngOnInit(): void {
+  console.log('MyOrdersComponent initialized');
+  this.loadOrders(); // טוען את ההזמנות מ-localStorage
 }
 
-
-
-// פונקציה לניהול הצגת פרטי ההזמנה
-viewBooking(order: Order): void {
-  // ניווט לדף פרטי ההזמנה
-  this.router.navigate(['/booking-details', order.id]);
-}
-
-viewFlightDetails(order: Order): void {
-  console.log('Order:', order);
-
-  if (!order.flight) {
-    console.error('No flight details found:', order);
-    return;
+loadOrders(): void {
+  const storedOrders = localStorage.getItem('myOrders');
+  if (storedOrders) {
+    this.bookings = JSON.parse(storedOrders);
+  } else {
+    console.log('No orders found in localStorage.');
   }
-
-  const flight = order.flight;
-
-  if (!flight.id || !flight.origin || !flight.destination || !flight.departure || !flight.arrival) {
-    console.error('Incomplete flight details:', flight);
-    return;
-  }
-
-  this.router.navigate(['/flight-details', flight.id]);
 }
 
 
-// פונקציה לרענן את הדף באופן ידני (כאשר תלחץ על כפתור)
-refreshOrders(): void {
-  this.loadOrders(); // טוען מחדש את ההזמנות
+get upcomingOrders() {
+  return this.bookings.filter(order => order.date >= this.today);
 }
+
+get previousOrders() {
+  return this.bookings.filter(order => order.date < this.today);
+}
+viewFlightDetails(order: Order) {
+  const dialogRef = this.dialog.open(FlightDetailsComponent, {
+    width: '600px',
+    data: { flight: order.flight }
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    console.log('Flight details dialog closed', result);
+  });
+}
+
+refreshOrders() {
+  console.log('Refreshing orders...');
+}
+
 }
 

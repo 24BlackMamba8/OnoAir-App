@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { BookingDialogComponent } from './booking-dialog.component';
 
 describe('BookingDialogComponent', () => {

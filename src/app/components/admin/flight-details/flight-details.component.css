@@ -2,6 +2,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center; /* מרכז את התוכן גם אנכית */
+  height: 100vh; /* ממלא את גובה המסך */
   padding: 20px;
   font-family: 'Arial', sans-serif;
 }
@@ -11,8 +13,8 @@
   max-width: 500px;
   border: 1px solid #ddd;
   padding: 20px;
-  border-radius: 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center; /* ממרכז את הטקסט */
 }
 
 label {
@@ -36,10 +38,9 @@ img {
   color: white;
   padding: 10px 20px;
   border: none;
-  border-radius: 1px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  align-self: flex-end; /* יישור לימין */
+  margin-top: 10px;
 }
 
 .close-button:hover {

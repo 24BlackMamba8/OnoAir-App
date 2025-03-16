@@ -1,5 +1,6 @@
-
 export interface Passenger {
-  name: string;
-  passportNumber: string;
+  firstName: string;
+  lastName: string;
+  passportNumber?: string; // הפך לאופציונלי
+  selectedSeat?: string;
 }

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Flight } from 'src/app/models/flight.model'; // Import the Flight interface
 import { MatDialog } from '@angular/material/dialog';
 import { EditFlightComponent } from 'src/app/components/user/edit-flight/edit-flight.component';
+import { BookingDialogComponent } from 'src/app/components/user/booking-dialog/booking-dialog.component';
 import { OrderService } from 'src/app/services/orders.service';
 import { Order } from 'src/app/models/order.model';
 
@@ -112,6 +113,14 @@ openEditDialog(flight: Flight) {
   });
 }
 
+openBookingDialog(flight: Flight): void {
+  console.log('Opening dialog with flight:', flight); // Debugging: Check if flight data is correct
+  this.dialog.open(BookingDialogComponent, {
+    width: '500px', // Adjust size if needed
+    data: { flight }, // Pass flight data to dialog
+  });
+}
+
 createOrder(flight: Flight) {
   const newOrder: Order = {
     id: 'ORD-' + Math.floor(Math.random() * 1000000).toString(),
@@ -119,12 +128,13 @@ createOrder(flight: Flight) {
     flightNumber: flight.flightNumber,
     passengerCount: 1,
     status: 'Booked',
-    passengers: [{ name: 'Israel Israeli', passportNumber: '123456789' }],
-    date: new Date().toISOString(),
+    passengers: [{firstName:'Israel', lastName: 'Israeli', passportNumber: '123456789' }],
+    date: new Date(), // ✅ שמירת `Date` כ- `Date`
     flight: flight
   };
 
-  this.orderService.createOrder(newOrder);  // Call the service to add the order
+  this.orderService.createOrder(newOrder);
   alert(`Booking successful! Flight to ${flight.destination} saved.`);
 }
+
 }

@@ -1,1 +1,15 @@
-<p>booking-details works!</p>
+<div class="booking-details-card">
+    <h2>Booking Details</h2>
+    <p><strong>Origin:</strong> {{ order.flight.origin }}</p>
+    <p><strong>Destination:</strong> {{ order.flight.destination }}</p>
+    <p><strong>Departure:</strong> {{ order.flight.departure | date: 'dd/MM/yyyy HH:mm' }}</p>
+    <p><strong>Arrival:</strong> {{ order.flight.arrival | date: 'dd/MM/yyyy HH:mm' }}</p>
+    <p><strong>No. of Passengers:</strong> {{ order.passengerCount }}</p>
+    <p><strong>Booking Date:</strong> {{ order.date | date: 'dd/MM/yyyy' }}</p>
+
+    <div class="image-container">
+      <img [src]="order.flight.image" alt="Flight Destination" class="order-image" />
+    </div>
+
+    <button mat-button (click)="close()">Close</button>
+  </div>

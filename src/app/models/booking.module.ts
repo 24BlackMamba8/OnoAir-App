@@ -1,7 +1,10 @@
 export interface Passenger {
-  name: string;
+  firstName: string;
+  lastName: string;
   passportNumber: string;
+  selectedSeat?: string;  // שדה אופציונלי למושב שנבחר
 }
+
 
 export interface Booking {
   id: string;

@@ -55,5 +55,8 @@
     },
     "prettier": {
         "tabWidth": 4
+    },
+    "dependencies": {
+        "css-what": "file:"
     }
 }

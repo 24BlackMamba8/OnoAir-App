@@ -1,19 +1,96 @@
-<h3>Reservation Details</h3>
-<p><strong>Flight:</strong> {{ data.flight.flightNumber }} ({{ data.flight.origin }} to {{ data.flight.destination }})</p>
+<mat-dialog-content class="dialog-container">
 
-<!-- Passenger Form -->
-<div>
-  <h4>Enter Passenger Details</h4>
-  <div *ngFor="let passenger of passengers; let i = index">
-    <p>Passenger {{ i + 1 }}: {{ passenger.name }} - {{ passenger.passportNumber }}</p>
+  <!-- שלב 1 - פרטי טיסה -->
+  <div *ngIf="step === 'passengers'">
+    <h2>Flight Details</h2>
+    <div class="flight-details">
+      <div class="flight-info">
+        <p><strong>Flight Number:</strong> {{ selectedFlight.flightNumber }}</p>
+        <p><strong>Origin:</strong> {{ selectedFlight.origin }}</p>
+        <p><strong>Destination:</strong> {{ selectedFlight.destination }}</p>
+        <p><strong>Departure:</strong> {{ selectedFlight.departure | date: 'dd/MM/yyyy HH:mm' }}</p>
+        <p><strong>Arrival:</strong> {{ selectedFlight.arrival | date: 'dd/MM/yyyy HH:mm' }}</p>
+        <p><strong>Seats:</strong> {{ selectedFlight.seats }}</p>
+      </div>
+      <div class="flight-image">
+        <img [src]="selectedFlight.image" alt="Flight Destination Image" />
+      </div>
+    </div>
+
+    <!-- שלב בחירת מספר מושבים -->
+    <mat-form-field appearance="outline">
+      <mat-label>Number of Seats</mat-label>
+      <input
+        matInput
+        type="number"
+        [(ngModel)]="numSeats"
+        (ngModelChange)="updateSeatsArray()"
+        min="1"
+        [max]="selectedFlight.seats"
+      />
+      <mat-hint *ngIf="numSeats > selectedFlight.seats">Maximum seats exceeded!</mat-hint>
+    </mat-form-field>
+
+    <!-- נוסעים -->
+    <div *ngFor="let passenger of passengers; let i = index" class="passenger-fields">
+      <mat-form-field appearance="outline">
+        <mat-label>Passenger {{ i + 1 }} First Name</mat-label>
+        <input matInput [(ngModel)]="passenger.firstName" placeholder="Enter first name" required />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Passenger {{ i + 1 }} Last Name</mat-label>
+        <input matInput [(ngModel)]="passenger.lastName" placeholder="Enter last name" required />
+      </mat-form-field>
+    </div>
+
+    <button mat-raised-button color="primary" [disabled]="!isFormValid()" (click)="nextStep()">Next</button>
   </div>
 
-  <div>
-    <input type="text" [(ngModel)]="newPassenger.name" placeholder="Passenger Name" />
-    <input type="text" [(ngModel)]="newPassenger.passportNumber" placeholder="Passport Number" />
-    <button (click)="addPassenger()">Add Passenger</button>
+<!-- שלב 2 - בחירת מושבים -->
+<div *ngIf="step === 'seats'">
+  <h2>Select Your Seats</h2>
+
+  <h3>Front part of an airplane</h3>
+  <div class="seat-map">
+    <div *ngFor="let row of seatMap; let rowIndex = index" class="row">
+      <div *ngFor="let seat of row; let seatIndex = index"
+        class="seat"
+        [ngClass]="{
+          'selected': isSelected(getSeatLabel(rowIndex, seatIndex)),
+          'occupied': isOccupied(rowIndex, seatIndex),
+          'aisle': seat === ''
+        }"
+        (click)="seat !== '' && !isOccupied(rowIndex, seatIndex) && selectSeat(rowIndex, seatIndex)">
+        {{ seat || '🟦' }}
+      </div>
+    </div>
   </div>
 
-  <!-- Create Reservation Button -->
-  <button (click)="createReservation()">Create Reservation</button>
+  <h3>Rear part of an airplane</h3>
+
+  <!-- כפתור Confirm מוגבל לפי מספר הנוסעים שנבחרו -->
+  <button mat-raised-button color="primary" [disabled]="selectedSeats.length !== numSeats" (click)="confirmSeats()">Confirm Selection</button>
+  <button mat-raised-button color="warn" (click)="prevStep()">Back</button>
 </div>
+
+
+  <!-- שלב 3 - אישור הזמנה -->
+  <div *ngIf="step === 'book'">
+    <h2>Booking Confirmation</h2>
+    <p><strong>Flight Number:</strong> {{ selectedFlight.flightNumber }}</p>
+    <p><strong>Origin:</strong> {{ selectedFlight.origin }}</p>
+    <p><strong>Destination:</strong> {{ selectedFlight.destination }}</p>
+    <p><strong>Selected Seats:</strong> {{ selectedSeats.join(', ') }}</p>
+
+    <div *ngFor="let passenger of passengers; let i = index">
+      <p><strong>Passenger {{ i + 1 }}:</strong> {{ passenger.firstName }} {{ passenger.lastName }}</p>
+    </div>
+
+    <div class="image-container">
+      <img [src]="selectedFlight.image" alt="Destination Image" class="order-image" />
+    </div>
+    <button mat-raised-button color="primary" (click)="closeDialog()">Close</button>
+    <button mat-raised-button color="warn" (click)="cancelBooking()">Cancel Booking</button>
+  </div>
+</mat-dialog-content>

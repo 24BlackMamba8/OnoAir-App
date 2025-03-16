@@ -14,8 +14,9 @@
     <div class="caption-container">
 
       <button class="flight-button" (click)="toggleLastMinuteFlights()">Last Minute Flights</button>
-
-      <button class="last-minute-button" (click)="toggleLastMinuteFlights()">Last Minute Flights</button>
+    </div>
+    <div class="caption-container">
+      <button class="flight-button" (click)="toggleFutureFlights()">Future Flights</button>
 
     </div>
     <div *ngIf="showLastMinuteFlights" class="flight-card-container">
@@ -26,11 +27,12 @@
           [alt]="'Image of ' + flight.destination"
         />
         <div class="flight-info">
+          <p><strong>Last Minute Flights </strong> </p>
           <p><strong>From:</strong> {{ flight.origin }}</p>
           <p><strong>To:</strong> {{ flight.destination }}</p>
           <p><strong>Departure:</strong> {{ flight.departure | date:'short' }}</p>
           <p><strong>Arrival:</strong> {{ flight.arrival | date:'short' }}</p>
-          <button class="book-button" (click)="openEditDialog(flight)">Book Now</button>
+          <button class="book-button" (click)="openBookingDialog(flight)">Book Now</button>
         </div>
       </div>
     </div>
@@ -38,13 +40,6 @@
 
   <!-- Future Flights Section -->
   <section id="future-flights" class="future-flights">
-    <div class="caption-container">
-
-      <button class="flight-button" (click)="toggleFutureFlights()">Future Flights</button>
-
-      <button class="future-flights-button" (click)="toggleFutureFlights()">Future Flights</button>
-
-    </div>
     <div *ngIf="showFutureFlights" class="flight-card-container">
       <div *ngFor="let flight of futureFlights" class="flight-card">
         <img
@@ -53,6 +48,7 @@
           [alt]="'Image of ' + flight.destination"
         />
         <div class="flight-info">
+          <p><strong>Future Flights </strong> </p>
           <p><strong>From:</strong> {{ flight.origin }}</p>
           <p><strong>To:</strong> {{ flight.destination }}</p>
           <p><strong>Departure:</strong> {{ flight.departure | date:'short' }}</p>

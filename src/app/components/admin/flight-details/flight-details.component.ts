@@ -6,13 +6,16 @@ import { DatePipe } from '@angular/common';
 import { FlightService } from 'src/app/services/flight.service';
 import { Order } from 'src/app/models/order.model'; // אם המודל נמצא בנתיב הזה
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-flight-details',
   templateUrl: './flight-details.component.html',
   styleUrls: ['./flight-details.component.css'],
   standalone: true,
-  imports: [CommonModule, DatePipe],
+  imports: [CommonModule, DatePipe,MatDialogModule],
   providers: [{ provide: LOCALE_ID, useValue: 'en-US' }] // הגדר את LOCALE_ID כאן
 })
 export class FlightDetailsComponent {
@@ -23,6 +26,7 @@ export class FlightDetailsComponent {
     private route: ActivatedRoute,
     private flightService: FlightService,
     public dialogRef: MatDialogRef<FlightDetailsComponent>,
+    private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: { flight: Flight },
     @Inject(LOCALE_ID) public locale: string
   ) {}
@@ -32,9 +36,19 @@ export class FlightDetailsComponent {
   }
 
 
-  viewFlightDetails(order: Order): void {
-    const flight = order.flight;
-    this.router.navigate(['/flight-details', flight.id]); // ניווט עם מזהה הטיסה
+  viewFlightDetails(order: Order) {
+    this.dialog.open(FlightDetailsComponent, {
+      width: '600px',
+      data: { flight: order.flight } // ✅ מעביר את הנתונים לדיאלוג
+    });
   }
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      const flightId = params.get('id');
+      console.log(flightId); // או טיפול במידע אחר
+    });
+  }
+
 }
 

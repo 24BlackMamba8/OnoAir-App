@@ -44,6 +44,7 @@
 	],
 	"dependencies": {
 		"bundle-name": "^4.1.0",
+		"default-browser": "file:",
 		"default-browser-id": "^5.0.0"
 	},
 	"devDependencies": {

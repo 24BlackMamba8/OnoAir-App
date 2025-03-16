@@ -1,24 +1,40 @@
-<div class="edit-flight-container">
-  <h2>Edit Flight</h2>
-  <form (ngSubmit)="onSave()">
-    <label>Flight Number:</label>
-    <input type="text" [(ngModel)]="updatedFlight.flightNumber" name="flightNumber" disabled />
+<mat-card class="edit-flight-card">
+  <mat-card-title>Edit Flight</mat-card-title>
+  <mat-card-content>
+    <form (ngSubmit)="onSave()" fxLayout="column" fxLayoutGap="16px">
+      <mat-form-field appearance="outline">
+        <mat-label>Flight Number</mat-label>
+        <input matInput type="text" [(ngModel)]="updatedFlight.flightNumber" name="flightNumber" disabled />
+      </mat-form-field>
 
-    <label>Origin:</label>
-    <input type="text" [(ngModel)]="updatedFlight.origin" name="origin" disabled />
+      <mat-form-field appearance="outline">
+        <mat-label>Origin</mat-label>
+        <input matInput type="text" [(ngModel)]="updatedFlight.origin" name="origin" disabled />
+      </mat-form-field>
 
-    <label>Destination:</label>
-    <input type="text" [(ngModel)]="updatedFlight.destination" name="destination" disabled />
+      <mat-form-field appearance="outline">
+        <mat-label>Destination</mat-label>
+        <input matInput type="text" [(ngModel)]="updatedFlight.destination" name="destination" disabled />
+      </mat-form-field>
 
-    <label>First Name:</label>
-    <input type="text" [(ngModel)]="updatedFlight.firstName" name="firstName" required />
+      <mat-form-field appearance="outline">
+        <mat-label>First Name</mat-label>
+        <input matInput type="text" [(ngModel)]="updatedFlight.firstName" name="firstName" required />
+      </mat-form-field>
 
-    <label>Last Name:</label>
-    <input type="text" [(ngModel)]="updatedFlight.lastName" name="lastName" required />
+      <mat-form-field appearance="outline">
+        <mat-label>Last Name</mat-label>
+        <input matInput type="text" [(ngModel)]="updatedFlight.lastName" name="lastName" required />
+      </mat-form-field>
 
-    <label>Seat Number:</label>
-    <input type="number" [(ngModel)]="updatedFlight.seatNumber" name="seatNumber" required />
+      <mat-form-field appearance="outline">
+        <mat-label>Seat Number</mat-label>
+        <input matInput type="number" [(ngModel)]="updatedFlight.seatNumber" name="seatNumber" required />
+      </mat-form-field>
 
-    <button type="submit">Save</button>
-  </form>
-</div>
+      <mat-card-actions align="end">
+        <button mat-raised-button color="primary" type="submit">Save</button>
+      </mat-card-actions>
+    </form>
+  </mat-card-content>
+</mat-card>

@@ -40,23 +40,14 @@ export class DestinationManagementComponent {
       imageUrl: 'https://via.placeholder.com/150',
       airportName: 'Charles de Gaulle Airport',
       airportWebsite: 'https://www.parisaeroport.fr/en',
-      emailAddress: 'info@parisaeroport.fr',
+      emailAddress: 'info@parisaeroport.fr'
     },
-    {
-      destinationCode: 'AMS',
+    { destinationCode: 'AMS',
       destinationName: 'Amsterdam',
       imageUrl: 'https://via.placeholder.com/150',
       airportName: 'Amsterdam Airport Schiphol',
       airportWebsite: 'https://www.schiphol.nl/en/',
-      emailAddress: 'info@schiphol.nl',
-    },
-    {
-      destinationCode: 'DXB',
-      destinationName: 'Dubai',
-      imageUrl: 'https://via.placeholder.com/150',
-      airportName: 'Dubai International Airport',
-      airportWebsite: 'https://www.dubaiairports.ae/',
-      emailAddress: 'feedback@dubaiairports.ae',
+      emailAddress: 'info@schiphol.nl'
     },
     {
       destinationCode: 'HND',
@@ -64,7 +55,7 @@ export class DestinationManagementComponent {
       imageUrl: 'https://via.placeholder.com/150',
       airportName: 'Haneda Airport',
       airportWebsite: 'https://www.tokyo-airport-bldg.co.jp/en/',
-      emailAddress: 'info@tokyo-airport-bldg.co.jp',
+      emailAddress: 'info@tokyo-airport-bldg.co.jp'
     },
     {
       destinationCode: 'FRA',
@@ -72,15 +63,7 @@ export class DestinationManagementComponent {
       imageUrl: 'https://via.placeholder.com/150',
       airportName: 'Frankfurt Airport',
       airportWebsite: 'https://www.frankfurt-airport.com/en.html',
-      emailAddress: 'info@fraport.de',
-    },
-    {
-      destinationCode: 'IST',
-      destinationName: 'Istanbul',
-      imageUrl: 'https://via.placeholder.com/150',
-      airportName: 'Istanbul Airport',
-      airportWebsite: 'https://www.istairport.com/en',
-      emailAddress: 'info@igairport.com',
+      emailAddress: 'info@fraport.de'
     },
     {
       destinationCode: 'MAD',
@@ -88,7 +71,7 @@ export class DestinationManagementComponent {
       imageUrl: 'https://via.placeholder.com/150',
       airportName: 'Adolfo Suárez Madrid–Barajas Airport',
       airportWebsite: 'https://www.aena.es/en/madrid-barajas.html',
-      emailAddress: 'info@aena.es',
+      emailAddress: 'info@aena.es'
     },
     {
       destinationCode: 'SIN',
@@ -96,7 +79,7 @@ export class DestinationManagementComponent {
       imageUrl: 'https://via.placeholder.com/150',
       airportName: 'Singapore Changi Airport',
       airportWebsite: 'https://www.changiairport.com/',
-      emailAddress: 'enquiry@changiairport.com',
+      emailAddress: 'enquiry@changiairport.com'
     },
     {
       destinationCode: 'SYD',
@@ -104,9 +87,74 @@ export class DestinationManagementComponent {
       imageUrl: 'https://via.placeholder.com/150',
       airportName: 'Sydney Airport',
       airportWebsite: 'https://www.sydneyairport.com.au/',
-      emailAddress: 'info@sydneyairport.com.au',
+      emailAddress: 'info@sydneyairport.com.au'
     },
+    {
+      destinationCode: 'DXB',
+      destinationName: 'Dubai',
+      imageUrl: 'https://via.placeholder.com/150',
+      airportName: 'Dubai International Airport',
+      airportWebsite: 'https://www.dubaiairports.ae/',
+      emailAddress: 'feedback@dubaiairports.ae'
+    },
+    {
+      destinationCode: 'IST',
+      destinationName: 'Istanbul',
+      imageUrl: 'https://via.placeholder.com/150',
+      airportName: 'Istanbul Airport',
+      airportWebsite: 'https://www.istairport.com/en',
+      emailAddress: 'info@igairport.com'
+    },
+    {
+      destinationCode: 'LAX',
+      destinationName: 'Los Angeles',
+      imageUrl: 'https://via.placeholder.com/150',
+      airportName: 'Los Angeles International Airport',
+      airportWebsite: 'https://www.flylax.com/',
+      emailAddress: 'info@flylax.com'
+    },
+    {
+      destinationCode: 'JFK',
+      destinationName: 'New York',
+      imageUrl: 'https://via.placeholder.com/150',
+      airportName: 'John F. Kennedy International Airport',
+      airportWebsite: 'https://www.jfkairport.com/',
+      emailAddress: 'info@jfkairport.com'
+    },
+    {
+      destinationCode: 'LHR',
+      destinationName: 'London',
+      imageUrl: 'https://via.placeholder.com/150',
+      airportName: 'Heathrow Airport',
+      airportWebsite: 'https://www.heathrow.com/',
+      emailAddress: 'info@heathrow.com'
+    },
+    {
+      destinationCode: 'MEX',
+      destinationName: 'Mexico City',
+      imageUrl: 'https://via.placeholder.com/150',
+      airportName: 'Mexico City International Airport',
+      airportWebsite: 'https://www.aicm.com.mx/',
+      emailAddress: 'info@aicm.com.mx'
+    },
+    {
+      destinationCode: 'BKK',
+      destinationName: 'Bangkok',
+      imageUrl: 'https://via.placeholder.com/150',
+      airportName: 'Suvarnabhumi Airport',
+      airportWebsite: 'https://www.suvarnabhumi.airportthai.co.th/',
+      emailAddress: 'info@airportthai.co.th'
+    },
+    {
+      destinationCode: 'HKG',
+      destinationName: 'Hong Kong',
+      imageUrl: 'https://via.placeholder.com/150',
+      airportName: 'Hong Kong International Airport',
+      airportWebsite: 'https://www.hongkongairport.com/',
+      emailAddress: 'info@hongkongairport.com'
+    }
   ];
+
 
   constructor(private dialog: MatDialog) { }
 

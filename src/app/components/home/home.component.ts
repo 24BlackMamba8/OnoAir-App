@@ -9,6 +9,7 @@ import { FlightService } from 'src/app/services/flight.service';
 import { Order } from 'src/app/models/order.model'; // מודל ההזמנה
 import { MatDialog } from '@angular/material/dialog';
 import { EditFlightComponent } from 'src/app/components/user/edit-flight/edit-flight.component';
+import { BookingDialogComponent } from 'src/app/components/user/booking-dialog/booking-dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -76,7 +77,7 @@ export class HomeComponent implements OnInit {
       destination: 'Osaka',
       departure: new Date('2025-03-04T12:00:00'),
       arrival: new Date('2025-03-04T13:30:00'),
-      image: '/assets/images/osaka.jpg',
+      image: '/assets/images/osaka-japan.jpg',
       seats: 95,
     },
     {
@@ -86,7 +87,7 @@ export class HomeComponent implements OnInit {
       destination: 'San Francisco',
       departure: new Date('2025-03-05T15:00:00'),
       arrival: new Date('2025-03-05T16:15:00'),
-      image: '/assets/images/san-francisco.jpg',
+      image: '/assets/images/San francisco.jpg',
       seats: 85,
     },
     {
@@ -116,17 +117,17 @@ export class HomeComponent implements OnInit {
       destination: 'Phuket',
       departure: new Date('2025-03-08T21:00:00'),
       arrival: new Date('2025-03-08T22:15:00'),
-      image: '/assets/images/phuket.jpg',
+      image: '/assets/images/phuket.jfif',
       seats: 140,
     },
     {
       id: 11,
       flightNumber: 'LN133',
       origin: 'Amsterdam',
-      destination: 'Brussels',
+      destination: 'paris',
       departure: new Date('2025-03-09T07:45:00'),
       arrival: new Date('2025-03-09T08:45:00'),
-      image: '/assets/images/brussels.jpg',
+      image: '/assets/images/paris.jpg',
       seats: 90,
     },
     {
@@ -136,7 +137,7 @@ export class HomeComponent implements OnInit {
       destination: 'Zurich',
       departure: new Date('2025-03-10T12:15:00'),
       arrival: new Date('2025-03-10T13:30:00'),
-      image: '/assets/images/zurich.jpg',
+      image: '/assets/images/zurich.jfif',
       seats: 100,
     },
   ];
@@ -149,7 +150,7 @@ export class HomeComponent implements OnInit {
           destination: 'Vancouver',
           departure: new Date('2025-04-05T10:00:00'),
           arrival: new Date('2025-04-05T13:00:00'),
-          image: '/assets/images/vancouver.jpg',
+          image: '/assets/images/vancouver.jfif',
           seats: 150,
         },
         {
@@ -159,7 +160,7 @@ export class HomeComponent implements OnInit {
           destination: 'Bangkok',
           departure: new Date('2025-04-10T09:30:00'),
           arrival: new Date('2025-04-10T13:00:00'),
-          image: '/assets/images/bangkok.jpg',
+          image: '/assets/images/bangkok.jfif',
           seats: 120,
         },
         {
@@ -169,7 +170,7 @@ export class HomeComponent implements OnInit {
           destination: 'Cancun',
           departure: new Date('2025-04-15T08:00:00'),
           arrival: new Date('2025-04-15T10:30:00'),
-          image: '/assets/images/cancun.jpg',
+          image: '/assets/images/cancun.jfif',
           seats: 180,
         },
         {
@@ -179,7 +180,7 @@ export class HomeComponent implements OnInit {
           destination: 'Athens',
           departure: new Date('2025-04-18T07:45:00'),
           arrival: new Date('2025-04-18T11:30:00'),
-          image: '/assets/images/athens.jpg',
+          image: '/assets/images/athens.jfif',
           seats: 200,
         },
         {
@@ -189,7 +190,7 @@ export class HomeComponent implements OnInit {
           destination: 'Istanbul',
           departure: new Date('2025-04-20T06:00:00'),
           arrival: new Date('2025-04-20T09:00:00'),
-          image: '/assets/images/istanbul.jpg',
+          image: '/assets/images/istanbul.jfif',
           seats: 110,
         },
         {
@@ -199,7 +200,7 @@ export class HomeComponent implements OnInit {
           destination: 'Shanghai',
           departure: new Date('2025-04-22T14:00:00'),
           arrival: new Date('2025-04-22T16:30:00'),
-          image: '/assets/images/shanghai.jpg',
+          image: '/assets/images/shanghai.jfif',
           seats: 95,
         },
         {
@@ -209,7 +210,7 @@ export class HomeComponent implements OnInit {
           destination: 'Las Vegas',
           departure: new Date('2025-04-25T16:00:00'),
           arrival: new Date('2025-04-25T19:30:00'),
-          image: '/assets/images/las-vegas.jpg',
+          image: '/assets/images/las-vegas.jfif',
           seats: 130,
         },
         {
@@ -219,7 +220,7 @@ export class HomeComponent implements OnInit {
           destination: 'Madrid',
           departure: new Date('2025-04-28T09:00:00'),
           arrival: new Date('2025-04-28T11:30:00'),
-          image: '/assets/images/madrid.jpg',
+          image: '/assets/images/madrid.jfif',
           seats: 160,
         },
         {
@@ -229,7 +230,7 @@ export class HomeComponent implements OnInit {
           destination: 'New York',
           departure: new Date('2025-05-01T10:00:00'),
           arrival: new Date('2025-05-01T14:00:00'),
-          image: '/assets/images/new-york.jpg',
+          image: '/assets/images/new york.jpg',
           seats: 175,
         },
         {
@@ -245,11 +246,11 @@ export class HomeComponent implements OnInit {
         {
           id: 11,
           flightNumber: 'FF111',
-          origin: 'Cape Town',
-          destination: 'Johannesburg',
+          origin: 'london',
+          destination: 'amsterdam',
           departure: new Date('2025-05-08T15:00:00'),
           arrival: new Date('2025-05-08T17:00:00'),
-          image: '/assets/images/johannesburg.jpg',
+          image: '/assets/images/amsterdam.jpg',
           seats: 125,
         },
         {
@@ -287,10 +288,13 @@ export class HomeComponent implements OnInit {
   }
 
   // Open booking dialog for future flights (example)
-  openBookingDialog(flight: any) {
-    // Implement your booking logic here
-    console.log("Booking flight", flight);
-  }
+  openBookingDialog(flight: Flight): void {
+     console.log('Opening dialog with flight:', flight); // Debugging: Check if flight data is correct
+     this.dialog.open(BookingDialogComponent, {
+       width: '500px', // Adjust size if needed
+       data: { flight }, // Pass flight data to dialog
+     });
+   }
 
   ngOnInit(): void {}
 
@@ -318,20 +322,22 @@ openEditDialog(flight: Flight) {
   });
 }
 
-  bookFlight(flight: Flight): void {
-    const newOrder: Order = {
-      id: 'ORD-' + Math.floor(Math.random() * 1000000).toString(), // Generate an id for the order
-      bookingCode: 'LM' + Math.random().toString(36).substr(2, 5).toUpperCase(),
-      flightNumber: flight.flightNumber,
-      passengerCount: 1,
-      passengers: [{ name: 'John Doe', passportNumber: '12345678' }],
-      status: 'Booked',
-      date: new Date().toISOString(), // Add the current date
-      flight: flight, // Include the flight details
-    };
+bookFlight(flight: Flight): void {
+  const newOrder: Order = {
+    id: 'ORD-' + Math.floor(Math.random() * 1000000).toString(),
+    bookingCode: 'LM' + Math.random().toString(36).substr(2, 5).toUpperCase(),
+    flightNumber: flight.flightNumber,
+    passengerCount: 1,
+    passengers: [{ firstName: 'John Doe', lastName: 'Green', passportNumber: '12345678' }],
+    status: 'Booked',
+    date: new Date(), // ✅ שמירת `Date` כאובייקט `Date` ולא מחרוזת
+    flight: flight,
+  };
 
-    this.orderService.addOrder(newOrder); // Call the service to add the order
-    alert(`Booking successful! Flight to ${flight.destination} saved.`);
-  }
+  this.orderService.addOrder(newOrder);
+  alert(`Booking successful! Flight to ${flight.destination} saved.`);
+}
+
+
 
 }

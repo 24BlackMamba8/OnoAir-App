@@ -1,9 +1,21 @@
 .destination-table {
   padding: 20px;
+  max-height: 70vh; /* הגבל את גובה הטבלה כך שלא תתפוס את כל המסך */
+  overflow-y: auto; /* הפעל גלילה אנכית בתוך הטבלה */
+  display: block; /* הכרחי כדי שה- overflow יעבוד על <table> */
+}
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto; /* מאפשר גלילה אנכית */
+  scroll-behavior: smooth;
 }
 
 .mat-table {
   width: 100%;
+  display: block;
+  overflow-x: auto;
+  max-height: 60vh;
 }
 
 mat-toolbar {

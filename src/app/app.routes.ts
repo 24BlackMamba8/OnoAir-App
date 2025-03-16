@@ -9,6 +9,9 @@ import { MyOrdersComponent } from 'src/app/components/user/my-orders/my-orders.c
 import { RouterModule } from '@angular/router';
 import { BookingDetailsComponent } from './components/user/booking-details/booking-details.component';
 import { FlightDetailsComponent } from 'src/app/components/admin/flight-details/flight-details.component';
+import { SeatSelectionComponent } from './components/user/seat-selection/seat-selection.component';
+
+
 export const appRoutes: Routes = [
   {
     path: '',
@@ -21,5 +24,6 @@ export const appRoutes: Routes = [
   { path: 'user/my-orders', component: MyOrdersComponent },
   { path: 'booking-details/:id', component: BookingDetailsComponent },
   { path: 'flight-details/:id', component: FlightDetailsComponent },
+  { path: 'select-seats', component: SeatSelectionComponent },
   { path: '**', redirectTo: '' }
 ];
