@@ -1,0 +1,23 @@
+<div class="last-minute-flights-container">
+  <h1>Last Minute Flights</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Flight No.</th>
+        <th>Origin</th>
+        <th>Destination</th>
+        <th>Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let flight of flights">
+        <td>{{ flight.flightNumber }}</td>
+        <td>{{ flight.origin }}</td>
+        <td>{{ flight.destination }}</td>
+        <button mat-raised-button color="primary"
+          (click)="openBookingDialog(flight)">Book</button>
+      </tr>
+    </tbody>
+  </table>
+</div>

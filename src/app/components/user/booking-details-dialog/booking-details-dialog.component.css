@@ -1,0 +1,13 @@
+/* כאן ניתן להוסיף עיצובים, למשל */
+h2 {
+  color: #1976d2;
+  text-align: center;
+}
+
+p {
+  font-size: 16px;
+}
+
+button {
+  margin-top: 20px;
+}

@@ -1,0 +1,65 @@
+.seat-selection-container {
+  text-align: center;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  width: 50%;
+  margin: auto;
+}
+
+.seat-map {
+  display: grid;
+  grid-template-columns: repeat(5, 40px); /* 5 מושבים בשורה */
+  gap: 10px;
+  justify-content: center;
+  margin: 20px auto;
+}
+
+.row {
+  display: contents; /* מאפשר שהשורות ישמרו על הסידור של grid */
+}
+
+.seat {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ddd;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.seat.occupied {
+  background: red;
+  cursor: not-allowed;
+}
+
+.seat.selected {
+  background: green;
+  color: white;
+}
+
+.seat.exit-row {
+  border: 2px solid orange;
+}
+
+.seat.aisle {
+  background: transparent;
+}
+
+.confirm-btn {
+  background: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.confirm-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}

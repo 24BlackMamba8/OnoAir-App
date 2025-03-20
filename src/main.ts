@@ -29,6 +29,6 @@ bootstrapApplication(AppComponent, {
     ]),
     provideRouter(appRoutes),
     provideHttpClient(),
-    provideAnimationsAsync(), provideAnimationsAsync(),
+    provideAnimationsAsync(), provideAnimationsAsync(), provideAnimationsAsync(),
   ],
 }).catch(err => console.error(err));

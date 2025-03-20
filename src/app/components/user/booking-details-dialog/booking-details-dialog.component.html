@@ -1,0 +1,12 @@
+<h2>Booking Confirmation</h2>
+<p><strong>Flight Number:</strong> {{ data.flight.flightNumber }}</p>
+<p><strong>Origin:</strong> {{ data.flight.origin }}</p>
+<p><strong>Destination:</strong> {{ data.flight.destination }}</p>
+<p><strong>Selected Seats:</strong> {{ data.selectedSeats.join(', ') }}</p>
+
+<div *ngFor="let passenger of data.passengers; let i = index">
+  <p><strong>Passenger {{ i + 1 }}:</strong> {{ passenger.firstName }} {{ passenger.lastName }}</p>
+</div>
+
+<button mat-raised-button color="primary" (click)="closeDialog()">Close</button>
+<button mat-raised-button color="warn" (click)="cancelBooking()">Cancel Booking</button>

@@ -1,0 +1,29 @@
+<div *ngIf="flight">
+  <h2>Flight Details</h2>
+  <p><strong>Flight Number:</strong> {{ flight.flightNumber }}</p>
+  <p><strong>Origin:</strong> {{ flight.origin }}</p>
+  <p><strong>Destination:</strong> {{ flight.destination }}</p>
+  <p><strong>Departure:</strong> {{ flight.departure | date: 'dd/MM/yyyy HH:mm' }}</p>
+  <p><strong>Arrival:</strong> {{ flight.arrival | date: 'dd/MM/yyyy HH:mm' }}</p>
+  <p><strong>Seats:</strong> {{ flight.seats }}</p>
+  <img [src]="flight.image" alt="Flight Image">
+</div>
+<h2 mat-dialog-title>Flight Details</h2>
+<mat-dialog-content>
+  <p><strong>Flight Number:</strong> {{ data.flight.flightNumber }}</p>
+  <p><strong>Origin:</strong> {{ data.flight.origin }}</p>
+  <p><strong>Destination:</strong> {{ data.flight.destination }}</p>
+  <p><strong>Departure:</strong> {{ data.flight.departure | date: 'dd/MM/yyyy HH:mm' }}</p>
+  <p><strong>Arrival:</strong> {{ data.flight.arrival | date: 'dd/MM/yyyy HH:mm' }}</p>
+  <p><strong>Passengers:</strong> {{ data.passengerCount }}</p>
+  <p><strong>Seats:</strong> {{ data.selectedSeats.join(', ') || 'N/A' }}</p>
+  <div *ngFor="let passenger of data.passengers">
+    <p><strong>Passenger:</strong> {{ passenger.firstName }} {{ passenger.lastName }}</p>
+  </div>
+  <p><strong>Booking Date:</strong> {{ data.date | date: 'dd/MM/yyyy' }}</p>
+  <p><strong>Status:</strong> {{ data.status }}</p>
+  <img [src]="data.flight.image" alt="Flight Image" style="max-width: 100%;" />
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>
