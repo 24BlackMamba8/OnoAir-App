@@ -1,64 +1,199 @@
 <div class="my-orders-container">
-  <h2>OnoAir - My Orders</h2>
+  <h1>My Bookings</h1>
+  <h2>All Bookings</h2>
+  <div class="orders-grid">
+    <mat-card class="order-card" *ngFor="let order of orders">
+      <mat-card-header>
+        <mat-card-title>{{ order.flight.origin }} → {{ order.flight.destination }}</mat-card-title>
+        <mat-card-subtitle>
+          Boarding: {{ order.flight.departure | date: 'dd/MM/yyyy HH:mm' }} |
+          Landing: {{ order.flight.arrival | date: 'dd/MM/yyyy HH:mm' }}
+        </mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image [src]="order.flight.image" alt="Flight Image" />
+      <mat-card-content>
+        <p><strong>Flight Number:</strong> {{ order.flight.flightNumber }}</p>
+        <p><strong>Passengers:</strong> {{ order.passengerCount }}</p>
+        <p><strong>Seats:</strong> {{ order.selectedSeats.join(', ') || 'N/A' }}</p>
+        <div *ngFor="let passenger of order.passengers">
+          <p><strong>Passenger:</strong> {{ passenger.firstName }} {{ passenger.lastName }}</p>
+        </div>
+        <p><strong>Booking Date:</strong> {{ order.date | date: 'dd/MM/yyyy' }}</p>
+        <p><strong>Status:</strong> {{ order.status }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button (click)="viewFlightDetails(order)">View Details</button>
+        <button mat-button color="accent" (click)="editBooking(order)">Edit</button>
+        <button mat-button color="warn" (click)="cancelBooking(order.id.toString())">Cancel</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+   <!-- הזמנות עתידיות -->
+   <h2>Upcoming Bookings</h2>
+  <div class="orders-grid">
+    <mat-card class="order-card" *ngFor="let order of upcomingOrders">
+      <mat-card-header>
+        <mat-card-title>{{ order.flight.origin }} → {{ order.flight.destination }}</mat-card-title>
+        <mat-card-subtitle>
+          Boarding: {{ order.flight.departure | date: 'dd/MM/yyyy HH:mm' }} |
+          Landing: {{ order.flight.arrival | date: 'dd/MM/yyyy HH:mm' }}
+        </mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image [src]="order.flight.image" alt="Flight Image" />
+      <mat-card-content>
+        <p><strong>Flight Number:</strong> {{ order.flight.flightNumber }}</p>
+        <p><strong>Passengers:</strong> {{ order.passengerCount }}</p>
+        <p><strong>Seats:</strong> {{ order.selectedSeats.join(', ') || 'N/A' }}</p>
+        <div *ngFor="let passenger of order.passengers">
+          <p><strong>Passenger:</strong> {{ passenger.firstName }} {{ passenger.lastName }}</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
 
-  <!-- הזמנות עתידיות -->
-  <h3>Upcoming Bookings</h3>
-  <table class="orders-table">
-    <thead>
-      <tr>
-        <th>Origin</th>
-        <th>Destination</th>
-        <th>Flight Image</th>
-        <th>No. of Passengers</th>
-        <th>Booking Date</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let order of upcomingOrders">
-        <td>{{ order.flight.origin }} Boarding: {{ order.flight.departure | date: 'dd/MM/yyyy HH:mm' }}</td>
-        <td>{{ order.flight.destination }} Landing: {{ order.flight.arrival | date: 'dd/MM/yyyy HH:mm' }}</td>
-        <td>
-          <div class="image-container">
-            <img [src]="order.flight.image" alt="Destination Image" class="order-image" />
-          </div>
-        </td>
-        <td>{{ order.passengerCount }}</td>
-        <td>{{ order.date | date: 'dd/MM/yyyy' }}</td>
-        <td>
-          <button mat-button *ngIf="order.flight" (click)="viewFlightDetails(order)">View</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="orders-grid">
+    <mat-card class="order-card" *ngFor="let order of upcomingOrdersExmple">
+      <mat-card-header>
+        <mat-card-title>{{ order.flight.origin }} → {{ order.flight.destination }}</mat-card-title>
+        <mat-card-subtitle>
+          Boarding: {{ order.flight.departure | date: 'dd/MM/yyyy HH:mm' }} |
+          Landing: {{ order.flight.arrival | date: 'dd/MM/yyyy HH:mm' }}
+        </mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image [src]="order.flight.image" alt="Flight Image" />
+      <mat-card-content>
+        <p><strong>Flight Number:</strong> {{ order.flight.flightNumber }}</p>
+        <p><strong>Passengers:</strong> {{ order.passengerCount }}</p>
+        <p><strong>Seats:</strong> {{ order.selectedSeats.join(', ') || 'N/A' }}</p>
+        <div *ngFor="let passenger of order.passengers">
+          <p><strong>Passenger:</strong> {{ passenger.firstName }} {{ passenger.lastName }}</p>
+        </div>
+        <p><strong>Booking Date:</strong> {{ order.date | date: 'dd/MM/yyyy' }}</p>
+        <p><strong>Status:</strong> {{ order.status }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button (click)="viewFlightDetails(order)">View Details</button>
+        <button mat-button color="accent" (click)="editBooking(order)">Edit</button>
+        <button mat-button color="warn" (click)="cancelBooking(order.id.toString())">Cancel</button>
 
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <!-- הזמנות של הרגע האחרון -->
+  <h2>Last-Minute Bookings</h2>
+  <div class="orders-grid">
+    <mat-card class="order-card last-minute" *ngFor="let order of lastMinuteOrders">
+      <mat-card-header>
+        <mat-card-title>{{ order.flight.origin }} → {{ order.flight.destination }}</mat-card-title>
+        <mat-card-subtitle>
+          Boarding: {{ order.flight.departure | date: 'dd/MM/yyyy HH:mm' }} |
+          Landing: {{ order.flight.arrival | date: 'dd/MM/yyyy HH:mm' }}
+        </mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image [src]="order.flight.image" alt="Flight Image" />
+      <mat-card-content>
+        <p><strong>Flight Number:</strong> {{ order.flight.flightNumber }}</p>
+        <p><strong>Passengers:</strong> {{ order.passengerCount }}</p>
+        <p><strong>Seats:</strong> {{ order.selectedSeats.join(', ') || 'N/A' }}</p>
+        <div *ngFor="let passenger of order.passengers">
+          <p><strong>Passenger:</strong> {{ passenger.firstName }} {{ passenger.lastName }}</p>
+        </div>
+        <p><strong>Booking Date:</strong> {{ order.date | date: 'dd/MM/yyyy' }}</p>
+        <p><strong>Status:</strong> {{ order.status }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button (click)="viewFlightDetails(order)">View Details</button>
+        <button mat-button color="accent" (click)="editBooking(order)">Edit</button>
+        <button mat-button color="warn" (click)="cancelBooking(order.id.toString())">Cancel</button>
+
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  <div class="orders-grid">
+    <mat-card class="order-card last-minute" *ngFor="let order of lastMinuteOrdersExmple">
+      <mat-card-header>
+        <mat-card-title>{{ order.flight.origin }} → {{ order.flight.destination }}</mat-card-title>
+        <mat-card-subtitle>
+          Boarding: {{ order.flight.departure | date: 'dd/MM/yyyy HH:mm' }} |
+          Landing: {{ order.flight.arrival | date: 'dd/MM/yyyy HH:mm' }}
+        </mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image [src]="order.flight.image" alt="Flight Image" />
+      <mat-card-content>
+        <p><strong>Flight Number:</strong> {{ order.flight.flightNumber }}</p>
+        <p><strong>Passengers:</strong> {{ order.passengerCount }}</p>
+        <p><strong>Seats:</strong> {{ order.selectedSeats.join(', ') || 'N/A' }}</p>
+        <div *ngFor="let passenger of order.passengers">
+          <p><strong>Passenger:</strong> {{ passenger.firstName }} {{ passenger.lastName }}</p>
+        </div>
+        <p><strong>Booking Date:</strong> {{ order.date | date: 'dd/MM/yyyy' }}</p>
+        <p><strong>Status:</strong> {{ order.status }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button (click)="viewFlightDetails(order)">View Details</button>
+        <button mat-button color="accent" (click)="editBooking(order)">Edit</button>
+        <button mat-button color="warn" (click)="cancelBooking(order.id.toString())">Cancel</button>
+
+      </mat-card-actions>
+    </mat-card>
+  </div>
   <!-- הזמנות קודמות -->
-  <h3>Previous Bookings</h3>
-  <table class="orders-table">
-    <thead>
-      <tr>
-        <th>Origin</th>
-        <th>Destination</th>
-        <th>Flight Image</th>
-        <th>No. of Passengers</th>
-        <th>Booking Date</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let order of previousOrders">
-        <td>{{ order.flight.origin }} Boarding: {{ order.flight.departure | date: 'dd/MM/yyyy HH:mm' }}</td>
-        <td>{{ order.flight.destination }} Landing: {{ order.flight.arrival | date: 'dd/MM/yyyy HH:mm' }}</td>
-        <td>
-          <div class="image-container">
-            <img [src]="order.flight.image" alt="Destination Image" class="order-image" />
-          </div>
-        </td>
-        <td>{{ order.passengerCount }}</td>
-        <td>{{ order.date | date: 'dd/MM/yyyy' }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <h2>Previous Bookings</h2>
+  <div class="orders-grid">
+    <mat-card class="order-card past-order" *ngFor="let order of previousOrders">
+      <mat-card-header>
+        <mat-card-title>{{ order.flight.origin }} → {{ order.flight.destination }}</mat-card-title>
+        <mat-card-subtitle>
+          Boarding: {{ order.flight.departure | date: 'dd/MM/yyyy HH:mm' }} |
+          Landing: {{ order.flight.arrival | date: 'dd/MM/yyyy HH:mm' }}
+        </mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image [src]="order.flight.image" alt="Flight Image" />
+      <mat-card-content>
+        <p><strong>Flight Number:</strong> {{ order.flight.flightNumber }}</p>
+        <p><strong>Passengers:</strong> {{ order.passengerCount }}</p>
+        <p><strong>Seats:</strong> {{ order.selectedSeats.join(', ') || 'N/A' }}</p>
+        <div *ngFor="let passenger of order.passengers">
+          <p><strong>Passenger:</strong> {{ passenger.firstName }} {{ passenger.lastName }}</p>
+        </div>
+        <p><strong>Booking Date:</strong> {{ order.date | date: 'dd/MM/yyyy' }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button (click)="viewFlightDetails(order)">View Details</button>
+        <button mat-button color="accent" (click)="editBooking(order)">Edit</button>
+        <button mat-button color="warn" (click)="cancelBooking(order.id.toString())">Cancel</button>
 
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  <div class="orders-grid">
+    <mat-card class="order-card past-order" *ngFor="let order of previousOrdersExmple">
+      <mat-card-header>
+        <mat-card-title>{{ order.flight.origin }} → {{ order.flight.destination }}</mat-card-title>
+        <mat-card-subtitle>
+          Boarding: {{ order.flight.departure | date: 'dd/MM/yyyy HH:mm' }} |
+          Landing: {{ order.flight.arrival | date: 'dd/MM/yyyy HH:mm' }}
+        </mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image [src]="order.flight.image" alt="Flight Image" />
+      <mat-card-content>
+        <p><strong>Flight Number:</strong> {{ order.flight.flightNumber }}</p>
+        <p><strong>Passengers:</strong> {{ order.passengerCount }}</p>
+        <p><strong>Seats:</strong> {{ order.selectedSeats.join(', ') || 'N/A' }}</p>
+        <div *ngFor="let passenger of order.passengers">
+          <p><strong>Passenger:</strong> {{ passenger.firstName }} {{ passenger.lastName }}</p>
+        </div>
+        <p><strong>Booking Date:</strong> {{ order.date | date: 'dd/MM/yyyy' }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button (click)="viewFlightDetails(order)">View Details</button>
+        <button mat-button color="accent" (click)="editBooking(order)">Edit</button>
+        <button mat-button color="warn" (click)="cancelBooking(order.id.toString())">Cancel</button>
+
+      </mat-card-actions>
+    </mat-card>
+  </div>
   <!-- כפתור רענון -->
-  <button (click)="refreshOrders()" class="refresh-button">Refresh Orders</button>
+  <button mat-raised-button color="primary" (click)="refreshOrders()" class="refresh-button">Refresh Orders</button>
 </div>

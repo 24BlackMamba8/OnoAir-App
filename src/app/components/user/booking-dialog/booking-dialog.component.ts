@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 import { Passenger } from 'src/app/models/passenger.module';  // עדכן את הנתיב בהתאם
 import { FlightDetailsComponent } from 'src/app/components/admin/flight-details/flight-details.component';
 import { Order } from 'src/app/models/order.model';
+import { BookingService } from 'src/app/services/booking.service';
 
 @Component({
   selector: 'app-booking-dialog',
@@ -34,6 +35,7 @@ export class BookingDialogComponent implements OnInit {
   numSeats: number = 1;
   selectedFlight!: Flight;
   flight!: Flight;
+  orders: Order[] = [];
   order: Order | null = null; // ✅ הגדרת המשתנה כדי למנוע שגיאות
   today = new Date();
   bookings: Order[] = [];
@@ -82,17 +84,40 @@ export class BookingDialogComponent implements OnInit {
     private cdRef: ChangeDetectorRef,
     @Inject(MAT_DIALOG_DATA) public data: {
       flight: Flight; selectedSeats: string[];
+      isEdit?: boolean;
+      passengerCount?: number;  // הוספת passengerCount
       passengers: { firstName: string; lastName: string; passportNumber: string }[]},
-    private flightService: FlightService,
-    private dialogRef: MatDialogRef<BookingDialogComponent>
-  ) {
 
-  this.selectedSeats = data.selectedSeats || [];
+    private flightService: FlightService,
+    private bookingService: BookingService,
+    private dialogRef: MatDialogRef<BookingDialogComponent>
+    ) {
+       this.selectedSeats = data.selectedSeats || [];
+        // אם יש isEdit, יש לעדכן את כל שאר המידע
+  if (this.data && this.data.isEdit) {
+    this.numSeats = this.data.passengerCount || 1; // אם passengerCount לא מוגדר, תן ערך ברירת מחדל של 1
+    this.passengers = this.data.passengers;
+    this.selectedSeats = this.data.selectedSeats;
+    // עדכון פרטים נוספים לפי הצורך
+  }
+    }
+
+  openBookingDialog(): void {
+    console.log("Opening dialog with flight data:", this.selectedFlight);
+
+    this.dialog.open(BookingDialogComponent, {
+      width: '500px',
+      data: { flight: this.selectedFlight }
+    });
   }
 
   ngOnInit(): void {
+    console.log("Received data in dialog:", this.data);
     if (this.data && this.data.flight) {
       this.selectedFlight = this.data.flight;
+      this.cdRef.detectChanges();
+      console.log("Flight Image URL:", this.selectedFlight.image);
+
 
       if (!this.selectedFlight.seats || this.selectedFlight.seats <= 0) {
         console.error("Invalid number of seats:", this.selectedFlight.seats);
@@ -152,7 +177,28 @@ export class BookingDialogComponent implements OnInit {
       this.passengers[currentPassengerIndex].selectedSeat = seatLabel;
     }
   }
+  editBooking(order: any): void {
+    const dialogRef = this.dialog.open(BookingDialogComponent, {
+      width: '800px',
+      data: {
+        flight: order.flight,
+         passengers: order.passengers,
+          selectedSeats: order.selectedSeats,
+           passengerCount: order.passengerCount,
+            date: order.date,
+             status: order.status,
+              isEdit: true
+            }
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // עדכן את ההזמנה בשירות
+        this.bookingService.updateOrder(order.id, result);
+        this.refreshOrders();
+      }
+    });
+  }
 
   confirmSeats(): void {
     if (this.selectedSeats.length > 0) {
@@ -274,10 +320,25 @@ viewFlightDetails(order: Order) {
   }
 
   closeDialog(): void {
-    this.dialogRef.close();
+    const newOrder = {
+      flight: this.selectedFlight,
+      passengers: this.passengers,
+      selectedSeats: this.selectedSeats,
+      passengerCount: this.numSeats,
+      date: new Date(),
+      status: 'Confirmed'
+    };
+
+    this.bookingService.addOrder(newOrder); // שמור את ההזמנה בשירות
+
+    this.dialogRef.close(newOrder);
   }
+
   prevStep(): void {
     this.step = 'passengers';
   }
 
+  refreshOrders(): void {
+    this.orders = this.bookingService.getOrders();
+  }
 }

@@ -8,38 +8,22 @@
   <p><strong>Seats:</strong> {{ flight.seats }}</p>
   <img [src]="flight.image" alt="Flight Image">
 </div>
-
-<div mat-dialog-content>
-  <div>
-    <label>Flight Number:</label>
-    <span>{{ data.flight.flightNumber }}</span>
+<h2 mat-dialog-title>Flight Details</h2>
+<mat-dialog-content>
+  <p><strong>Flight Number:</strong> {{ data.flight.flightNumber }}</p>
+  <p><strong>Origin:</strong> {{ data.flight.origin }}</p>
+  <p><strong>Destination:</strong> {{ data.flight.destination }}</p>
+  <p><strong>Departure:</strong> {{ data.flight.departure | date: 'dd/MM/yyyy HH:mm' }}</p>
+  <p><strong>Arrival:</strong> {{ data.flight.arrival | date: 'dd/MM/yyyy HH:mm' }}</p>
+  <p><strong>Passengers:</strong> {{ data.passengerCount }}</p>
+  <p><strong>Seats:</strong> {{ data.selectedSeats.join(', ') || 'N/A' }}</p>
+  <div *ngFor="let passenger of data.passengers">
+    <p><strong>Passenger:</strong> {{ passenger.firstName }} {{ passenger.lastName }}</p>
   </div>
-  <div>
-    <label>Origin:</label>
-    <span>{{ data.flight.origin }}</span>
-  </div>
-  <div>
-    <label>Destination:</label>
-    <span>{{ data.flight.destination }}</span>
-  </div>
-  <div>
-    <label>Departure:</label>
-    <span>{{ data.flight.departure | date:'shortDate' }}</span>
-  </div>
-
-  <div>
-    <label>Arrival:</label>
-    <span>{{ data.flight.arrival | date:'shortDate' }}</span>
-  </div>
-  <div>
-    <label>Seats:</label>
-    <span>{{ data.flight.seats }}</span>
-  </div>
-  <div>
-    <label>Image:</label>
-    <img [src]="data.flight.image" alt="Flight Image" width="200">
-  </div>
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onClose()">Close</button>
-</div>
+  <p><strong>Booking Date:</strong> {{ data.date | date: 'dd/MM/yyyy' }}</p>
+  <p><strong>Status:</strong> {{ data.status }}</p>
+  <img [src]="data.flight.image" alt="Flight Image" style="max-width: 100%;" />
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

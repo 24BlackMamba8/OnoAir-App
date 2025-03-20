@@ -27,8 +27,8 @@ export class FlightDetailsComponent {
     private flightService: FlightService,
     public dialogRef: MatDialogRef<FlightDetailsComponent>,
     private dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: { flight: Flight },
-    @Inject(LOCALE_ID) public locale: string
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(LOCALE_ID) public locale: string,
   ) {}
 
   onClose(): void {
