@@ -1,4 +1,3 @@
-
 // home.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -10,6 +9,8 @@ import { Order } from 'src/app/models/order.model'; // מודל ההזמנה
 import { MatDialog } from '@angular/material/dialog';
 import { EditFlightComponent } from 'src/app/components/user/edit-flight/edit-flight.component';
 import { BookingDialogComponent } from 'src/app/components/user/booking-dialog/booking-dialog.component';
+import { LastMinuteBookingsComponent } from 'src/app/components/user/last-minute-bookings-dialog/last-minute-bookings.component';
+import { FutureBookingsDialogComponent } from 'src/app/components/user/future-bookings-dialog/future-bookings-dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -271,6 +272,8 @@ export class HomeComponent implements OnInit {
   constructor(private router: Router,public dialog: MatDialog,private flightService: FlightService, private orderService: OrderService) {}
 
 
+
+
   navigateToFutureFlights() {
     // You can use Angular's router to navigate to the future flights page
     this.router.navigate(['/future-flights']);
@@ -287,14 +290,24 @@ export class HomeComponent implements OnInit {
     this.showFutureFlights = !this.showFutureFlights;
   }
 
-  // Open booking dialog for future flights (example)
-  openBookingDialog(flight: Flight): void {
-     console.log('Opening dialog with flight:', flight); // Debugging: Check if flight data is correct
-     this.dialog.open(BookingDialogComponent, {
-       width: '500px', // Adjust size if needed
-       data: { flight }, // Pass flight data to dialog
-     });
-   }
+  // Open booking dialog for last-minute flights
+  OpenLastMinuteBookingsDialog(flight: Flight): void {
+    console.log('Opening dialog with flight:', flight);
+    this.dialog.open(LastMinuteBookingsComponent, {
+      width: '500px',
+      data: { flight: flight }
+    });
+}
+
+ // Open booking dialog for future flights
+ openFutureBookingsDialog(flight: Flight): void {
+  console.log('Opening dialog with flight:', flight);
+  this.dialog.open(FutureBookingsDialogComponent, {
+    width: '500px',
+    data: { flight: flight }
+  });
+}
+
 
   ngOnInit(): void {}
 

@@ -32,7 +32,7 @@
           <p><strong>To:</strong> {{ flight.destination }}</p>
           <p><strong>Departure:</strong> {{ flight.departure | date:'short' }}</p>
           <p><strong>Arrival:</strong> {{ flight.arrival | date:'short' }}</p>
-          <button class="book-button" (click)="openBookingDialog(flight)">Book Now</button>
+          <button class="book-button" (click)="OpenLastMinuteBookingsDialog(flight)">Book Now</button>
         </div>
       </div>
     </div>
@@ -52,7 +52,7 @@
           <p><strong>To:</strong> {{ flight.destination }}</p>
           <p><strong>Departure:</strong> {{ flight.departure | date:'short' }}</p>
           <p><strong>Arrival:</strong> {{ flight.arrival | date:'short' }}</p>
-          <button class="book-button" (click)="openBookingDialog(flight)">Book Now</button>
+          <button class="book-button" (click)="openFutureBookingsDialog(flight)">Book Now</button>
         </div>
       </div>
     </div>

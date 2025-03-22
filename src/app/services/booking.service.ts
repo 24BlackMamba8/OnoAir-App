@@ -22,6 +22,7 @@ export interface Booking {
 
 @Injectable({ providedIn: 'root' })
 export class BookingService {
+
   private orders: any[] = [];
 
   constructor() {}
@@ -39,13 +40,27 @@ export class BookingService {
     refreshOrders(): void {
       // פונקציה לרענן את רשימת ההזמנות, תוכל להוסיף את הלוגיקה המתאימה
     }
-    
+
   addOrder(order: any): void {
     this.orders.push(order);
   }
 
   getOrders(): any[] {
     return this.orders;
+  }
+
+  getOrdersByType(type: string): any[] {
+    return this.orders.filter(order => order.type === type);
+  }
+
+  cancelOrder(orderId: string): void {
+    const index = this.orders.findIndex(order => order.id === orderId);
+    if (index !== -1) {
+      this.orders.splice(index, 1); // הסרת ההזמנה מהמערך
+      console.log(`Order with ID ${orderId} canceled.`);
+    } else {
+      console.log(`Order with ID ${orderId} not found.`);
+    }
   }
 
 }

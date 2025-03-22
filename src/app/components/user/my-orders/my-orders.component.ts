@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Type } from '@angular/core';
 import { DatePipe } from '@angular/common';  // ייבוא DatePipe
 import { MatCardModule } from '@angular/material/card';  // ייבוא MatCardModule
 import { CommonModule } from '@angular/common';  // ייבוא CommonModule
@@ -6,6 +6,13 @@ import { BookingService } from 'src/app/services/booking.service';
 import { FlightDetailsComponent } from 'src/app/components/admin/flight-details/flight-details.component';
 import { MatDialog } from '@angular/material/dialog';
 import { BookingDialogComponent } from 'src/app/components/user/booking-dialog/booking-dialog.component'; // ייבא את הדיאלוג
+import { LastMinuteBookingsComponent } from 'src/app/components/user/last-minute-bookings-dialog/last-minute-bookings.component'; // ייבוא LastMinuteBookingsComponent
+import { UpcomingBookingsDialogComponent } from '../upcoming-bookings-dialog/upcoming-bookings-dialog.component'; // ייבוא UpcomingBookingsDialogComponent
+import { FutureBookingsDialogComponent } from '../future-bookings-dialog/future-bookings-dialog.component'; // ייבוא FutureBookingsDialogComponent
+import { PreviousBookingsDialogComponent } from '../previous-bookings-dialog/previous-bookings-dialog.component'; // ייבוא PreviousBookingsDialogComponent
+
+
+
 @Component({
   selector: 'app-my-orders',
   standalone: true,  // מציין שזו קומפוננטה סטנדלון
@@ -102,9 +109,16 @@ export class MyOrdersComponent implements OnInit {
     private bookingService: BookingService,
     public dialog: MatDialog
 
-  ) {
+    ) {
     this.numSeats = 1;
 
+  }
+
+  ngOnInit(): void {
+    this.orders = this.bookingService.getOrders();
+    this.lastMinuteOrders = this.bookingService.getOrdersByType('lastMinute');
+    this.upcomingOrders = this.bookingService.getOrdersByType('upcoming');
+    this.previousOrders = this.bookingService.getOrdersByType('previous');
   }
 
    // מנגנון לעדכון הזמנות
@@ -155,34 +169,60 @@ export class MyOrdersComponent implements OnInit {
   }
 
    // הצגת פרטי טיסה בעמוד הזמנות
-  viewFlightDetails(order: any) {
-    this.dialog.open(FlightDetailsComponent, {
+   viewFlightDetails(order: any, type: string) {
+    let dialogComponent: Type<any>; // שינוי סוג dialogComponent
+    let dialogData;
+
+
+    switch (type) {
+      case 'upcoming':
+        dialogComponent = UpcomingBookingsDialogComponent;
+        dialogData = { booking: order };
+        break;
+      case 'lastMinute':
+        dialogComponent = LastMinuteBookingsComponent;
+        dialogData = { booking: order };
+        break;
+        case 'future':
+          dialogComponent = FutureBookingsDialogComponent;
+          dialogData = { booking: order };
+          break;
+      default:
+        dialogComponent = FlightDetailsComponent;
+        dialogData = {
+          flight: order.flight,
+          passengers: order.passengers,
+          selectedSeats: order.selectedSeats,
+          passengerCount: order.passengerCount,
+          date: order.date,
+          status: order.status,
+        };
+        break;
+    }
+
+    this.dialog.open(dialogComponent, {
       width: '600px',
-      data: { flight: order.flight, passengers: order.passengers, selectedSeats: order.selectedSeats, passengerCount: order.passengerCount, date: order.date, status: order.status }
+      data: dialogData,
     });
-    this.selectedFlight = order.flight;
-    this.passengers = order.passengers;
-    this.selectedSeats = order.selectedSeats;
-    this.step = 'book';
   }
+
 
   editBooking(order: any): void {
     const dialogRef = this.dialog.open(BookingDialogComponent, {
       width: '800px',
       data: {
         flight: order.flight,
-         passengers: order.passengers,
-          selectedSeats: order.selectedSeats,
-           passengerCount: order.passengerCount,
-            date: order.date,
-             status: order.status,
-              isEdit: true
-            }
+        passengers: order.passengers,
+        selectedSeats: order.selectedSeats,
+        passengerCount: order.passengerCount,
+        date: order.date,
+        status: order.status,
+        isEdit: true,
+      },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        // עדכן את ההזמנה בשירות
         this.bookingService.updateOrder(order.id, result);
         this.refreshOrders();
       }
@@ -190,14 +230,20 @@ export class MyOrdersComponent implements OnInit {
   }
 
   // מחיקת הזמנה
-  cancelBooking(orderId: string) {
-    this.upcomingOrders = this.upcomingOrders.filter(order => order.id !== orderId);
-  }
-  ngOnInit(): void {
-    this.orders = this.bookingService.getOrders();
+  cancelBooking(orderId: string): void {
+    // הוסף לוגיקה לביטול הזמנה
+    console.log(`Booking with ID ${orderId} canceled.`);
+    this.bookingService.cancelOrder(orderId);
+    this.refreshOrders();
   }
 
   refreshOrders(): void {
     this.orders = this.bookingService.getOrders();
+    this.lastMinuteOrders = this.bookingService.getOrdersByType('lastMinute');
+    this.upcomingOrders = this.bookingService.getOrdersByType('upcoming');
+    this.previousOrders = this.bookingService.getOrdersByType('previous');
+    this.lastMinuteOrdersExmple = this.bookingService.getOrdersByType('lastMinute');
+    this.upcomingOrdersExmple = this.bookingService.getOrdersByType('upcoming');
+    this.previousOrdersExmple = this.bookingService.getOrdersByType('previous');
   }
 }
