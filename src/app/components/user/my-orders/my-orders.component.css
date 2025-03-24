@@ -6,6 +6,12 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   max-width: 1200px;
   margin: auto;
+  min-height: 140vh; /* חשוב להוסיף את זה כדי לוודא שהמיכל יתפוס לפחות גובה מלא של הדף */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* מאפשר לפזר את התוכן ולהשאיר את הכפתור בתחתית */
+  padding-bottom: 60px; /* הוספת padding כדי לוודא שהכפתור לא נדחף יותר מדי קרוב לתחתית */
+  justify-content: space-between; /* מבטיח שהכפתור יישאר בתחתית */
 }
 
 h1 {

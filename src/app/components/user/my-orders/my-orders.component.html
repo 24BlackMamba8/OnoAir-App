@@ -80,9 +80,19 @@
         <p><strong>Flight Number:</strong> {{ order.flight.flightNumber }}</p>
         <p><strong>Passengers:</strong> {{ order.passengerCount }}</p>
         <p><strong>Seats:</strong> {{ order.selectedSeats.join(', ') || 'N/A' }}</p>
+
         <div *ngFor="let passenger of order.passengers">
           <p><strong>Passenger:</strong> {{ passenger.firstName }} {{ passenger.lastName }}</p>
+
+          <!-- Luggage Information -->
+          <p><strong>Luggage:</strong></p>
+          <ul>
+            <li *ngFor="let luggage of passenger.luggage">
+              {{ luggage.type }} ({{ luggage.weight }} kg)
+            </li>
+          </ul>
         </div>
+
         <p><strong>Booking Date:</strong> {{ order.date | date: 'dd/MM/yyyy' }}</p>
         <p><strong>Status:</strong> {{ order.status }}</p>
       </mat-card-content>
@@ -93,7 +103,6 @@
       </mat-card-actions>
     </mat-card>
   </div>
-
   <!-- הזמנות של הרגע האחרון -->
   <h2>Last-Minute Bookings</h2>
   <div class="orders-grid">
@@ -140,7 +149,14 @@
         <p><strong>Seats:</strong> {{ order.selectedSeats.join(', ') || 'N/A' }}</p>
         <div *ngFor="let passenger of order.passengers">
           <p><strong>Passenger:</strong> {{ passenger.firstName }} {{ passenger.lastName }}</p>
-        </div>
+         <!-- Luggage Information -->
+         <p><strong>Luggage:</strong></p>
+         <ul>
+           <li *ngFor="let luggage of passenger.luggage">
+             {{ luggage.type }} ({{ luggage.weight }} kg)
+           </li>
+         </ul>
+       </div>
         <p><strong>Booking Date:</strong> {{ order.date | date: 'dd/MM/yyyy' }}</p>
         <p><strong>Status:</strong> {{ order.status }}</p>
       </mat-card-content>
@@ -197,7 +213,14 @@
         <p><strong>Seats:</strong> {{ order.selectedSeats.join(', ') || 'N/A' }}</p>
         <div *ngFor="let passenger of order.passengers">
           <p><strong>Passenger:</strong> {{ passenger.firstName }} {{ passenger.lastName }}</p>
-        </div>
+         <!-- Luggage Information -->
+         <p><strong>Luggage:</strong></p>
+         <ul>
+           <li *ngFor="let luggage of passenger.luggage">
+             {{ luggage.type }} ({{ luggage.weight }} kg)
+           </li>
+         </ul>
+       </div>
         <p><strong>Booking Date:</strong> {{ order.date | date: 'dd/MM/yyyy' }}</p>
       </mat-card-content>
       <mat-card-actions>

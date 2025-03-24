@@ -53,13 +53,30 @@ export class MyOrdersComponent implements OnInit {
       passengerCount: 2,
       selectedSeats: ['12A', '12B'],
       passengers: [
-        { firstName: 'John', lastName: 'Doe' },
-        { firstName: 'Jane', lastName: 'Doe' }
+        {
+          firstName: 'John',
+          lastName: 'Doe',
+          luggage: [
+            { type: 'Carry-On Bag', weight: 5 },
+            { type: 'Checked Bag', weight: 23 },
+            { type: 'Extra Baggage', weight: 10 }
+          ]
+        },
+        {
+          firstName: 'Jane',
+          lastName: 'Doe',
+          luggage: [
+            { type: 'Carry-On Bag', weight: 5 },
+            { type: 'Checked Bag', weight: 23 },
+            { type: 'Extra Baggage', weight: 10 }
+          ]
+        }
       ],
       date: new Date('2025-03-15'),
       status: 'Confirmed'
     }
   ];
+
 
   lastMinuteOrdersExmple = [
     {
@@ -75,35 +92,69 @@ export class MyOrdersComponent implements OnInit {
       passengerCount: 1,
       selectedSeats: ['3A'],
       passengers: [
-        { firstName: 'Alice', lastName: 'Smith' }
+        {
+          firstName: 'Alice',
+          lastName: 'Smith',
+          luggage: [
+            { type: 'Carry-On Bag', weight: 5 },
+            { type: 'Checked Bag', weight: 23 },
+            { type: 'Extra Baggage', weight: 10 }
+          ]
+        }
       ],
       date: new Date('2025-03-20'),
       status: 'Pending'
     }
   ];
 
+
   previousOrdersExmple = [
     {
       id: 3,
       flight: {
         origin: 'Tokyo',
-        destination: 'las-vegas',
+        destination: 'Dubai',
         departure: new Date('2025-02-10T13:00:00'),
         arrival: new Date('2025-02-10T19:00:00'),
         flightNumber: 'TKL450',
-        image: 'assets/images/las-vegas.jfif'
+        image: 'assets/images/dubai.jpeg'
       },
       passengerCount: 3,
       selectedSeats: ['10A', '10B', '10C'],
       passengers: [
-        { firstName: 'Michael', lastName: 'Johnson' },
-        { firstName: 'Sarah', lastName: 'Johnson' },
-        { firstName: 'David', lastName: 'Johnson' }
+        {
+          firstName: 'Michael',
+          lastName: 'Johnson',
+          luggage: [
+            { type: 'Carry-On Bag', weight: 5 },
+            { type: 'Checked Bag', weight: 23 },
+            { type: 'Extra Baggage', weight: 10 }
+          ]
+        },
+        {
+          firstName: 'Sarah',
+          lastName: 'Johnson',
+          luggage: [
+            { type: 'Carry-On Bag', weight: 5 },
+            { type: 'Checked Bag', weight: 23 },
+            { type: 'Extra Baggage', weight: 10 }
+          ]
+        },
+        {
+          firstName: 'David',
+          lastName: 'Johnson',
+          luggage: [
+            { type: 'Carry-On Bag', weight: 5 },
+            { type: 'Checked Bag', weight: 23 },
+            { type: 'Extra Baggage', weight: 10 }
+          ]
+        }
       ],
       date: new Date('2025-02-01'),
       status: 'Completed'
     }
   ];
+
 
   constructor(
     private bookingService: BookingService,
