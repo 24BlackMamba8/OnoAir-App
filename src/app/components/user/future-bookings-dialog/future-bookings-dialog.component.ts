@@ -15,6 +15,7 @@ import { Passenger } from 'src/app/models/passenger.module';  // עדכן את �
 import { FlightDetailsComponent } from 'src/app/components/admin/flight-details/flight-details.component';
 import { Order } from 'src/app/models/order.model';
 import { BookingService } from 'src/app/services/booking.service';
+import { LuggageDialogComponent } from 'src/app/components/user/luggage-dialog/luggage-dialog.component';
 
 @Component({
   selector: 'app-future-bookings-dialog.component',
@@ -30,7 +31,7 @@ import { BookingService } from 'src/app/services/booking.service';
   ],
 })
 export class FutureBookingsDialogComponent implements OnInit {
-  step: 'passengers' | 'seats' | 'book' = 'passengers'; // הוספת שלב 'book'
+  step: 'passengers' | 'seats' | 'book'| 'luggage' = 'passengers'; // הוספת שלב 'book'
  // ✅ משתנה לשליטה במעבר השלבים
   numSeats: number = 1;
   selectedFlight!: Flight;
@@ -175,6 +176,24 @@ export class FutureBookingsDialogComponent implements OnInit {
       this.passengers[currentPassengerIndex].selectedSeat = seatLabel;
     }
   }
+
+    openLuggageDialog(passenger: Passenger) {
+      const dialogRef = this.dialog.open(LuggageDialogComponent, {
+        width: '400px',
+        data: { luggage: passenger.luggage }
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          passenger.luggage = result; // שמירת המטען שנבחר
+        }
+      });
+    }
+
+    goToLuggageStep() {
+      this.step = 'luggage';
+    }
+
   editBooking(order: any): void {
     const dialogRef = this.dialog.open(FutureBookingsDialogComponent, {
       width: '800px',

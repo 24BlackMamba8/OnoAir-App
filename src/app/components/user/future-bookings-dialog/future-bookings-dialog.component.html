@@ -43,10 +43,27 @@
         <mat-label>Passenger {{ i + 1 }} Last Name</mat-label>
         <input matInput [(ngModel)]="passenger.lastName" placeholder="Enter last name" required />
       </mat-form-field>
-    </div>
+    
 
     <button mat-raised-button color="primary" [disabled]="!isFormValid()" (click)="nextStep()">Next</button>
-  </div>
+
+         <!-- כפתור הוספת מטען -->
+         <button mat-button (click)="openLuggageDialog(passenger)">Add Luggage</button>
+        </div>
+
+        <button mat-raised-button color="primary" [disabled]="!isFormValid()" (click)="nextStep()">Next</button>
+      </div>
+
+        <!-- שלב - אישור מטען -->
+    <div *ngIf="step === 'luggage'">
+      <h2>Luggage Details</h2>
+      <div *ngFor="let passenger of passengers; let i = index">
+        <p><strong>Passenger {{ i + 1 }}:</strong> {{ passenger.firstName }} {{ passenger.lastName }}</p>
+        <p><strong>Luggage:</strong> {{ passenger.luggage | json }}</p>
+      </div>
+      <button mat-raised-button color="primary" (click)="nextStep()">Next</button>
+      <button mat-raised-button color="warn" (click)="prevStep()">Back</button>
+    </div>
 
 <!-- שלב 2 - בחירת מושבים -->
 <div *ngIf="step === 'seats'">

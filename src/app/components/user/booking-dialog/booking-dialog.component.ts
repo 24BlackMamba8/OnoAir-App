@@ -15,6 +15,8 @@ import { Passenger } from 'src/app/models/passenger.module';  // עדכן את �
 import { FlightDetailsComponent } from 'src/app/components/admin/flight-details/flight-details.component';
 import { Order } from 'src/app/models/order.model';
 import { BookingService } from 'src/app/services/booking.service';
+import { LuggageDialogComponent } from 'src/app/components/user/luggage-dialog/luggage-dialog.component';
+
 
 @Component({
   selector: 'app-booking-dialog',
@@ -30,7 +32,7 @@ import { BookingService } from 'src/app/services/booking.service';
   ],
 })
 export class BookingDialogComponent implements OnInit {
-  step: 'passengers' | 'seats' | 'book' = 'passengers'; // הוספת שלב 'book'
+  step: 'passengers' | 'seats' | 'book'| 'luggage' = 'passengers'; // הוספת שלב 'book'
  // ✅ משתנה לשליטה במעבר השלבים
   numSeats: number = 1;
   selectedFlight!: Flight;
@@ -136,6 +138,7 @@ export class BookingDialogComponent implements OnInit {
     this.passengers = Array.from({ length: this.numSeats }, () => ({
       firstName: '',
       lastName: '',
+      luggage: [],
       passportNumber: '',  // הוספת השדה החסר
       selectedSeat: undefined, // אופציונלי
     }));
@@ -177,6 +180,25 @@ export class BookingDialogComponent implements OnInit {
       this.passengers[currentPassengerIndex].selectedSeat = seatLabel;
     }
   }
+
+  openLuggageDialog(passenger: Passenger) {
+    const dialogRef = this.dialog.open(LuggageDialogComponent, {
+      width: '400px',
+      data: { luggage: passenger.luggage }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        passenger.luggage = result; // שמירת המטען שנבחר
+      }
+    });
+  }
+
+  goToLuggageStep() {
+    this.step = 'luggage';
+  }
+
+
   editBooking(order: any): void {
     const dialogRef = this.dialog.open(BookingDialogComponent, {
       width: '800px',
@@ -250,8 +272,6 @@ export class BookingDialogComponent implements OnInit {
       console.log('No seats selected.');
     }
   }
-
-
 
 
   confirmBooking(): void {

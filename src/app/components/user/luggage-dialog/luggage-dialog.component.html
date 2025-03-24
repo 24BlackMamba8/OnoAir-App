@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>Select luggage</h2>
+<mat-dialog-content>
+  <div *ngFor="let item of luggageOptions">
+    <mat-form-field>
+      <mat-label>{{ item.type }}</mat-label>
+      <input matInput [(ngModel)]="item.quantity" type="number" placeholder="amount">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>weight</mat-label>
+      <input matInput [(ngModel)]="item.weight" type="number" placeholder="weight">
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="cancel()">Cancel</button>
+  <button mat-button (click)="saveLuggage()">Save</button>
+</mat-dialog-actions>
