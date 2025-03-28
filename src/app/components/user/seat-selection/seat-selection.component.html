@@ -1,0 +1,23 @@
+<div class="seat-selection-container">
+  <h2>Select Your Seats</h2>
+
+  <div class="seat-map">
+    <div *ngFor="let row of seatMap; let rowIndex = index" class="row">
+      <div *ngFor="let seat of row; let seatIndex = index"
+        class="seat"
+        [ngClass]="{
+          'selected': isSelected(seat),
+          'occupied': isOccupied(rowIndex, seatIndex),
+          'exit-row': isExitRow(rowIndex),
+          'aisle': isAisle(rowIndex, seatIndex)
+        }"
+        (click)="seat !== '' && !isOccupied(rowIndex, seatIndex) && selectSeat(rowIndex, seatIndex)">
+        {{ seat || '🟦' }}
+      </div>
+    </div>
+  </div>
+
+  <button class="confirm-btn" (click)="confirmSeats()" [disabled]="!canProceed()">
+    Confirm Selection
+  </button>
+</div>

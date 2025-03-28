@@ -63,21 +63,24 @@
           },
           "defaultConfiguration": "production"
         },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "port": 4200
-          },
-          "configurations": {
-            "production": {
-              "buildTarget": "OnoAir-App:build:production"
-            },
-            "development": {
-              "buildTarget": "OnoAir-App:build:development"
-            }
-          },
-          "defaultConfiguration": "development"
-        },
+      "serve": {
+  "builder": "@angular-devkit/build-angular:dev-server",
+  "options": {
+    "port": 4200,
+    "proxyConfig": "proxy.conf.json"
+  },
+  "configurations": {
+    "production": {
+      "buildTarget": "OnoAir-App:build:production"
+    },
+    "development": {
+      "buildTarget": "OnoAir-App:build:development"
+    }
+  },
+  "defaultConfiguration": "development"
+}
+,
+        
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
@@ -117,3 +120,5 @@
     "analytics": false
   }
 }
+
+

@@ -1,0 +1,60 @@
+<!-- Updated HTML for Last Minute and Future Flights Sections -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<div class="home-container">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1>Welcome to OnoAir Flights</h1>
+      <p>Your gateway to seamless air travel</p>
+    </div>
+  </section>
+
+  <!-- Last Minute Flights Section -->
+  <section id="last-minute-flights" class="last-minute-flights">
+    <div class="caption-container">
+
+      <button class="flight-button" (click)="toggleLastMinuteFlights()">Last Minute Flights</button>
+    </div>
+    <div class="caption-container">
+      <button class="flight-button" (click)="toggleFutureFlights()">Future Flights</button>
+
+    </div>
+    <div *ngIf="showLastMinuteFlights" class="flight-card-container">
+      <div *ngFor="let flight of lastMinuteFlights" class="flight-card">
+        <img
+          class="flight-image"
+          [src]="flight.image"
+          [alt]="'Image of ' + flight.destination"
+        />
+        <div class="flight-info">
+          <p><strong>Last Minute Flights </strong> </p>
+          <p><strong>From:</strong> {{ flight.origin }}</p>
+          <p><strong>To:</strong> {{ flight.destination }}</p>
+          <p><strong>Departure:</strong> {{ flight.departure | date:'short' }}</p>
+          <p><strong>Arrival:</strong> {{ flight.arrival | date:'short' }}</p>
+          <button class="book-button" (click)="OpenLastMinuteBookingsDialog(flight)">Book Now</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Future Flights Section -->
+  <section id="future-flights" class="future-flights">
+    <div *ngIf="showFutureFlights" class="flight-card-container">
+      <div *ngFor="let flight of futureFlights" class="flight-card">
+        <img
+          class="flight-image"
+          [src]="flight.image"
+          [alt]="'Image of ' + flight.destination"
+        />
+        <div class="flight-info">
+          <p><strong>Future Flights </strong> </p>
+          <p><strong>From:</strong> {{ flight.origin }}</p>
+          <p><strong>To:</strong> {{ flight.destination }}</p>
+          <p><strong>Departure:</strong> {{ flight.departure | date:'short' }}</p>
+          <p><strong>Arrival:</strong> {{ flight.arrival | date:'short' }}</p>
+          <button class="book-button" (click)="openFutureBookingsDialog(flight)">Book Now</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

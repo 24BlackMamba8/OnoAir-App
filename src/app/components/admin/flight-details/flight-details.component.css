@@ -1,0 +1,48 @@
+.details-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* מרכז את התוכן גם אנכית */
+  height: 100vh; /* ממלא את גובה המסך */
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+.details-content {
+  width: 100%;
+  max-width: 500px;
+  border: 1px solid #ddd;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center; /* ממרכז את הטקסט */
+}
+
+label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+span {
+  display: block;
+  margin-bottom: 5px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  margin-top: 10px;
+}
+
+.close-button {
+  background-color: #dc3545; /* צבע אדום */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+.close-button:hover {
+  background-color: #c82333;
+}
